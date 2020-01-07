@@ -7,11 +7,16 @@ import { AppComponent } from './app.component';
 import { DoctorsComponent } from './doctors/doctors.component';
 import { DoctorComponent } from './doctor/doctor.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
+import { AppointmentComponent } from './appointment/appointment.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
+import {AppDataService} from './app-data.service';
 
 const appRoutes: Routes = [
-  { path: 'doctors', component: DoctorsComponent },
-  { path: 'doctor/:id',      component: DoctorComponent } ,
-  { path: 'doctor',      component: DoctorComponent }  
+  { path: 'doctors', component: DoctorsComponent, children: [
+      {path: ':id', component: DoctorComponent}      
+    ] 
+  },
+  { path: 'appointments',      component: AppointmentsComponent }  
 ];
 
 @NgModule({
@@ -19,7 +24,9 @@ const appRoutes: Routes = [
     AppComponent,
     DoctorsComponent,
     DoctorComponent,
-    AppHeaderComponent
+    AppHeaderComponent,
+    AppointmentComponent,
+    AppointmentsComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -29,7 +36,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [AppDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

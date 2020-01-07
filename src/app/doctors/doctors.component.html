@@ -1,21 +1,18 @@
 
 <div class="container">
     <div class="row">
-        <span><input name="searchDoctors" [(ngModel)]="doctorFound"/> Search <button class="btn-primary" name="Search">Search</button> </span>
-    <br/><br/><br/>
-    seaching {{doctorFound}}
-    
+        <input name="searchDoctors" [(ngModel)]="doctorFound"/> <button class="btn-primary" name="Search">Search</button>         
     </div>
     <div class="row">
         <div class="col-sm">
             <ul>
                 <li *ngFor="let d of doctors">
-                    Doctor {{d.FirstName}} {{d.LastName}}. Email {{d.Email}}
+                    <a [routerLink]="['../doctors',d.Id]">Doctor {{d.FirstName}} {{d.LastName}}. Email {{d.Email}}</a>                    
                 </li>
             </ul>
         </div>
         <div class="col-sm">
-
+            <router-outlet></router-outlet>
         </div>
     </div>
     
