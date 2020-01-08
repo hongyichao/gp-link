@@ -10,13 +10,18 @@ import { AppHeaderComponent } from './app-header/app-header.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import {AppDataService} from './app-data.service';
+import {LoginComponent } from './login/login.component';
+import {AuthGuard} from './auth-guard.service';
+import {LoginService} from './login.service';
 
 const appRoutes: Routes = [
   { path: 'doctors', component: DoctorsComponent, children: [
       {path: ':id', component: DoctorComponent}      
     ] 
   },
-  { path: 'appointments',      component: AppointmentsComponent }  
+  { path: 'appointments', component: AppointmentsComponent, canActivate:[AuthGuard] }, 
+  { path: 'login', component: LoginComponent }, 
+  { path: '**', redirectTo:'doctors' } 
 ];
 
 @NgModule({
@@ -26,7 +31,8 @@ const appRoutes: Routes = [
     DoctorComponent,
     AppHeaderComponent,
     AppointmentComponent,
-    AppointmentsComponent
+    AppointmentsComponent,
+    LoginComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -36,7 +42,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule
   ],
-  providers: [AppDataService],
+  providers: [AppDataService, AuthGuard, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
