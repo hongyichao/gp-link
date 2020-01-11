@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { DoctorsComponent } from './doctors/doctors.component';
 import { DoctorComponent } from './doctor/doctor.component';
@@ -13,16 +11,9 @@ import {AppDataService} from './app-data.service';
 import {LoginComponent } from './login/login.component';
 import {AuthGuard} from './auth-guard.service';
 import {LoginService} from './login.service';
-
-const appRoutes: Routes = [
-  { path: 'doctors', component: DoctorsComponent, children: [
-      {path: ':id', component: DoctorComponent}      
-    ] 
-  },
-  { path: 'appointments', component: AppointmentsComponent, canActivate:[AuthGuard] }, 
-  { path: 'login', component: LoginComponent }, 
-  { path: '**', redirectTo:'doctors' } 
-];
+import { PatientComponent } from './patient/patient.component';
+import { PatientsComponent } from './patients/patients.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -32,15 +23,15 @@ const appRoutes: Routes = [
     AppHeaderComponent,
     AppointmentComponent,
     AppointmentsComponent,
-    LoginComponent
+    LoginComponent,
+    PatientComponent,
+    PatientsComponent
   ],
   imports: [
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-    ),
+    AppRoutingModule,
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [AppDataService, AuthGuard, LoginService],
   bootstrap: [AppComponent]
