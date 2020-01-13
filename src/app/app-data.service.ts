@@ -16,6 +16,11 @@ export class AppDataService
     GetDoctorById(id: string): Doctor{
         return this.doctors[+id-1];
     }
+
+    AddDoctor(newDoctor: Doctor)
+    {
+        this.doctors.push(newDoctor);
+    }
 }
 
 export class Doctor

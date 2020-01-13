@@ -1,3 +1,23 @@
 
+
 <p>Doctor Id: {{doctorId}}</p>
 <p>Doctor {{doctor.FirstName}} {{doctor.LastName}} Greenvale</p>
+<div>
+<form (submit)="OnFormSubmit(f)"  #f="ngForm">
+    First Name <input [(ngModel)]="doctor.FirstName" name="drFirstName"  class="form-control" required #drfName="ngModel"/>
+    <p *ngIf="!drfName.valid && drfName.touched">FirstName Name is required</p>
+    Last Name <input [(ngModel)]="doctor.LastName" name="drLastName" class="form-control" required #drlName="ngModel"/>
+    <p *ngIf="!drlName.valid && drlName.touched">Last Name is required</p>
+
+    Email <input [(ngModel)]="doctor.Email" name="drEmail" class="form-control" required #drEmail="ngModel"/>
+    <p *ngIf="!drEmail.valid && drEmail.touched">Email is required</p>
+
+    Phone <input [(ngModel)]="doctor.Phone" name="drPhone" class="form-control" required #drPhone="ngModel"/>
+    <p *ngIf="!drPhone.valid && drPhone.touched">Phone is required</p>
+
+<button type="submit" class="form-control">Submit</button>
+</form>
+
+
+</div>
+
