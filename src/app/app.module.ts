@@ -8,6 +8,7 @@ import { AppHeaderComponent } from './app-header/app-header.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import {AppDataService} from './app-data.service';
+import {PatientDataService} from './patient-data.service';
 import {LoginComponent } from './login/login.component';
 import {AuthGuard} from './auth-guard.service';
 import {LoginService} from './login.service';
@@ -33,7 +34,7 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [AppDataService, AuthGuard, LoginService],
+  providers: [AppDataService, PatientDataService, AuthGuard, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

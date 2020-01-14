@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AppDataService} from '../app-data.service';
 import {Subscription, fromEventPattern} from 'rxjs';
@@ -9,7 +9,9 @@ import { NgForm } from '@angular/forms';
   templateUrl: './doctor.component.html',
   styleUrls: ['./doctor.component.css']
 })
-export class DoctorComponent implements OnInit {
+export class DoctorComponent implements OnInit 
+{
+  @ViewChild('f',  {static: false}) drForm: NgForm;
   doctor: any;
   doctorId:string;
   private routeSub: Subscription;
@@ -37,6 +39,12 @@ export class DoctorComponent implements OnInit {
     var newDoctor = {FirstName: frmValue.drFirstName, LastName: frmValue.drLastName, Email: frmValue.drEmail, Phone: frmValue.drPhone, Id: (drCount+1).toString() };
 
     this.appDataService.AddDoctor(newDoctor);
+  }
+
+  OnResetForm()
+  {
+    this.drForm.reset();
+
   }
 
 }

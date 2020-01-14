@@ -3,7 +3,7 @@
 <p>Doctor Id: {{doctorId}}</p>
 <p>Doctor {{doctor.FirstName}} {{doctor.LastName}} Greenvale</p>
 <div>
-<form (submit)="OnFormSubmit(f)"  #f="ngForm">
+<form (ngSubmit)="OnFormSubmit(f)"  #f="ngForm">
     First Name <input [(ngModel)]="doctor.FirstName" name="drFirstName"  class="form-control" required #drfName="ngModel"/>
     <p *ngIf="!drfName.valid && drfName.touched">FirstName Name is required</p>
     Last Name <input [(ngModel)]="doctor.LastName" name="drLastName" class="form-control" required #drlName="ngModel"/>
@@ -16,6 +16,7 @@
     <p *ngIf="!drPhone.valid && drPhone.touched">Phone is required</p>
 
 <button type="submit" class="form-control">Submit</button>
+<button type="button" class="form-control" (click)="OnResetForm()">Reset</button>
 </form>
 
 
