@@ -6,14 +6,19 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { LoginComponent } from './login/login.component';
 import {AuthGuard} from './auth-guard.service';
 import { PatientsComponent } from './patients/patients.component';
+import { PatientComponent } from './patient/patient.component';
 
 const appRoutes: Routes = [
-  { path: 'doctors', component: DoctorsComponent, children: [
-    {path: ':id', component: DoctorComponent}      
-  ] 
+  { 
+    path: 'doctors', component: DoctorsComponent, 
+    children:[{path: ':id', component: DoctorComponent}] 
   },
   { path: 'appointments', component: AppointmentsComponent, canActivate:[AuthGuard] }, 
-  { path: 'patients', component: PatientsComponent, canActivate:[AuthGuard] }, 
+  { 
+    path: 'patients', component: PatientsComponent, 
+    children:[{path:':id', component: PatientComponent}],
+    canActivate:[AuthGuard] 
+  }, 
   { path: 'login', component: LoginComponent }, 
   { path: '**', redirectTo:'doctors' } 
 ];

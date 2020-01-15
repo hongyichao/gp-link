@@ -1,1 +1,18 @@
-<p>patient works!</p>
+
+<div>{{patient.FirstName}}</div>
+<div>{{patient.LastName}}</div>
+
+<div class="row">
+
+    <form [formGroup]="patientForm" (ngSubmit)="onPatientFormSubmit()">
+        
+        First Name <input type="text" formControlName ="firstName" class="form-control">
+        Last Name <input type="text" formControlName ="lastName" class="form-control">
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+
+
+
