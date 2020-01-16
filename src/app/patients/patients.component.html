@@ -1,12 +1,16 @@
-<p>patients works!</p>
 
-<div class="row">
-    <div class="col-sm">
-        <div *ngFor="let p of patients">
-            <a [routerLink]="['/patients',p.Id]">First Name: {{p.FirstName}}; Last Name: {{p.LastName}}</a>
+<div class="container">
+    
+    <div class="row">
+        <div class="col-sm">
+            <div *ngFor="let p of patients">
+                <a [routerLink]="['/patients',p.Id]">First Name: {{p.FirstName}} Last Name: {{p.LastName}}</a>
+            </div>
+        </div>
+        <div class="col-sm">
+            <router-outlet></router-outlet>
         </div>
     </div>
-    <div class="col-sm">
-        <router-outlet></router-outlet>
-    </div>
+    
 </div>
+

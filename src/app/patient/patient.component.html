@@ -1,17 +1,39 @@
+<div class="container">
+    <div class="row">
 
-<div>{{patient.FirstName}}</div>
-<div>{{patient.LastName}}</div>
+        <form [formGroup]="patientForm" (ngSubmit)="onPatientFormSubmit()">
+            
+            <div class="form-group">
+                <label for="firstName">First Name</label> <input id="firstName" type="text" formControlName ="firstName" class="form-control" [(ngModel)]= "patient.FirstName">
+                <span class="help-block" *ngIf="!patientForm.get('firstName').valid && patientForm.get('firstName').touched">First name is required</span>
+            </div>
+            <div class="form-group">
+                <label>Last Name</label> <input type="text" formControlName ="lastName" class="form-control" [(ngModel)]= "patient.LastName" required>
+                <span class="help-block" *ngIf="!patientForm.get('lastName').valid && patientForm.get('lastName').touched">Last name is required</span>
+            </div>
+            <div class="form-group">
+                <label>Email</label> <input type="text" formControlName ="email" class="form-control" [(ngModel)]= "patient.Email" required>
+                <span class="help-block" *ngIf="!patientForm.get('email').valid && patientForm.get('email').touched">Please enter a valid email</span>
+            </div>
+            <div class="radio" *ngFor="let g of genders">
+                <label>
+                    <input type="radio" formControlName ="gender" [value]= "g" [(ngModel)]="patient.Gender">{{g}}                
+                </label> 
+            </div>
 
-<div class="row">
-
-    <form [formGroup]="patientForm" (ngSubmit)="onPatientFormSubmit()">
-        
-        First Name <input type="text" formControlName ="firstName" class="form-control">
-        Last Name <input type="text" formControlName ="lastName" class="form-control">
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-
+            <div formArrayName='notes'>
+                <h4>Notes</h4>
+                <button class="btn brn-default" tyep="button" (click)="onAddNotes()">Add Note</button>
+                <div class="form-group" *ngFor="let noteControl of patientForm.get('notes').controls; let i = index;">
+                    <input type="text" class="form-control" [formControlName]="i">
+                </div>
+            </div>
+    
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    
+    </div>
+    
 </div>
 
 

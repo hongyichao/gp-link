@@ -36,7 +36,7 @@ export class DoctorComponent implements OnInit
 
     var drCount= this.appDataService.GetDoctors().length;
 
-    var newDoctor = {FirstName: frmValue.drFirstName, LastName: frmValue.drLastName, Email: frmValue.drEmail, Phone: frmValue.drPhone, Id: (drCount+1).toString() };
+    var newDoctor = {FirstName: frmValue.drFirstName, LastName: frmValue.drLastName, Email: frmValue.drEmail, Phone: frmValue.drPhone, Id: (drCount+1).toString(), Gender:"male" };
 
     this.appDataService.AddDoctor(newDoctor);
   }

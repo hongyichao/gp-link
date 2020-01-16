@@ -9,8 +9,8 @@
     Last Name <input [(ngModel)]="doctor.LastName" name="drLastName" class="form-control" required #drlName="ngModel"/>
     <p *ngIf="!drlName.valid && drlName.touched">Last Name is required</p>
 
-    Email <input [(ngModel)]="doctor.Email" name="drEmail" class="form-control" required #drEmail="ngModel"/>
-    <p *ngIf="!drEmail.valid && drEmail.touched">Email is required</p>
+    Email <input [(ngModel)]="doctor.Email" name="drEmail" class="form-control" required email #drEmail="ngModel"/>
+    <p *ngIf="!drEmail.valid && drEmail.touched">Please enter a valid email</p>
 
     Phone <input [(ngModel)]="doctor.Phone" name="drPhone" class="form-control" required #drPhone="ngModel"/>
     <p *ngIf="!drPhone.valid && drPhone.touched">Phone is required</p>
