@@ -1,5 +1,10 @@
-IsLoggedIn {{IsLoggedIn}}
-<div>
-    <button class="btn btn-primary" (click)="ToLogin()">Login</button>
-    <button class="btn btn-primary" (click)="ToLogout()">Logout</button>
+<div class="container">
+    <div class="row">
+        <span *ngIf="IsLoggedIn" class="help-block">You are logged in as admin</span>
+        <span *ngIf="!IsLoggedIn" class="help-block">Please sign in to manage patients and appointments</span>
+    </div>
+    <div class="row">
+        <button class="btn btn-primary" (click)="ToLogin()">Login</button>
+        <button class="btn btn-primary" (click)="ToLogout()">Logout</button>
+    </div>
 </div>

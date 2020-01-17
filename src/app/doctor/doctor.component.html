@@ -1,24 +1,32 @@
 
 
-<p>Doctor Id: {{doctorId}}</p>
-<p>Doctor {{doctor.FirstName}} {{doctor.LastName}} Greenvale</p>
-<div>
-<form (ngSubmit)="OnFormSubmit(f)"  #f="ngForm">
-    First Name <input [(ngModel)]="doctor.FirstName" name="drFirstName"  class="form-control" required #drfName="ngModel"/>
-    <p *ngIf="!drfName.valid && drfName.touched">FirstName Name is required</p>
-    Last Name <input [(ngModel)]="doctor.LastName" name="drLastName" class="form-control" required #drlName="ngModel"/>
-    <p *ngIf="!drlName.valid && drlName.touched">Last Name is required</p>
 
-    Email <input [(ngModel)]="doctor.Email" name="drEmail" class="form-control" required email #drEmail="ngModel"/>
-    <p *ngIf="!drEmail.valid && drEmail.touched">Please enter a valid email</p>
-
-    Phone <input [(ngModel)]="doctor.Phone" name="drPhone" class="form-control" required #drPhone="ngModel"/>
-    <p *ngIf="!drPhone.valid && drPhone.touched">Phone is required</p>
-
-<button type="submit" class="form-control">Submit</button>
-<button type="button" class="form-control" (click)="OnResetForm()">Reset</button>
-</form>
-
-
+<div class="container">
+    <div class="row">
+        <form (ngSubmit)="OnFormSubmit(f)"  #f="ngForm">
+            <div class="form-group">
+                <label for="firstName">First Name</label> <input id="firstName" [(ngModel)]="doctor.FirstName" name="drFirstName"  class="form-control" required #drfName="ngModel"/>
+                <span class="help-block" *ngIf="!drfName.valid && drfName.touched">FirstName Name is required</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="lastName">Last Name</label><input id="lastName" [(ngModel)]="doctor.LastName" name="drLastName" class="form-control" required #drlName="ngModel"/>
+                <span class="help-block" *ngIf="!drlName.valid && drlName.touched">Last Name is required</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label> <input id="email" [(ngModel)]="doctor.Email" name="drEmail" class="form-control" required email #drEmail="ngModel"/>
+                <span class="help-block" *ngIf="!drEmail.valid && drEmail.touched">Please enter a valid email</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone"> Phone</label> <input id="phone" [(ngModel)]="doctor.Phone" name="drPhone" class="form-control" required #drPhone="ngModel"/>
+                <span class="help-block" *ngIf="!drPhone.valid && drPhone.touched">Phone is required</span>
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-warning" (click)="OnResetForm()">Reset</button>
+        </form>
+    </div>
 </div>
 

@@ -23,7 +23,7 @@
 
             <div formArrayName='notes'>
                 <h4>Notes</h4>
-                <button class="btn brn-default" tyep="button" (click)="onAddNotes()">Add Note</button>
+                <button class="btn btn-info" tyep="button" (click)="onAddNotes()">Add Note</button>
                 <div class="form-group" *ngFor="let noteControl of patientForm.get('notes').controls; let i = index;">
                     <input type="text" class="form-control" [formControlName]="i">
                 </div>
