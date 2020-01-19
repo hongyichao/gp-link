@@ -6,13 +6,13 @@ import {AppDataService} from '../app-data.service';
   templateUrl: './doctors.component.html',
   styleUrls: ['./doctors.component.css']
 })
-export class DoctorsComponent implements OnInit 
+export class DoctorsComponent implements OnInit
 {
   doctorFound:string = "";
   doctors: Array<Doctor>;
 
-  constructor(private appDataService: AppDataService) 
-  { 
+  constructor(private appDataService: AppDataService)
+  {
     this.doctors = appDataService.GetDoctors();
   }
 
@@ -23,9 +23,10 @@ export class DoctorsComponent implements OnInit
 
 export class Doctor
 {
+  public Id: string;
   public FirstName: string;
   public LastName: string;
-  public Email: string;  
+  public Email: string;
   public Phone: string ;
   public Gender: string;
 }
