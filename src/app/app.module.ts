@@ -15,6 +15,8 @@ import {LoginService} from './login.service';
 import { PatientComponent } from './patient/patient.component';
 import { PatientsComponent } from './patients/patients.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ShortenPipe } from './shorten.pipe';
+import { DoctorFilterPipe } from './pipes/doctor-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AppRoutingModule } from './app-routing.module';
     AppointmentsComponent,
     LoginComponent,
     PatientComponent,
-    PatientsComponent
+    PatientsComponent,
+    ShortenPipe,
+    DoctorFilterPipe
   ],
   imports: [
     AppRoutingModule,

@@ -8,12 +8,13 @@ import {AppDataService} from '../app-data.service';
 })
 export class DoctorsComponent implements OnInit
 {
-  doctorFound:string = "";
+  doctorFound: string;
   doctors: Array<Doctor>;
+  selectedDoctorName: string;
 
-  constructor(private appDataService: AppDataService)
-  {
+  constructor(private appDataService: AppDataService) {
     this.doctors = appDataService.GetDoctors();
+    this.selectedDoctorName = '';
   }
 
   ngOnInit() {
@@ -21,8 +22,7 @@ export class DoctorsComponent implements OnInit
 
 }
 
-export class Doctor
-{
+export class Doctor {
   public Id: string;
   public FirstName: string;
   public LastName: string;

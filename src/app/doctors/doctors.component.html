@@ -1,24 +1,23 @@
-
 <div class="container">
-    
+
     <div class="row">
         <div class="col-sm">
             <div class="row">
-                <div class="col-10"><input class="form-control" name="searchDoctors" [(ngModel)]="doctorFound"/> </div>
+                <div class="col-10"><input class="form-control" name="searchDoctors" [(ngModel)]="selectedDoctorName" /> </div>
                 <div class="col-2">
-                    <button class="btn btn-primary" name="Search">Search</button>         
+                    <button class="btn btn-primary" name="Search">Search</button>
                 </div>
             </div>
-            
+
             <div class="row">
-                <div *ngFor="let d of doctors">
-                    <a [routerLink]="['/doctors',d.Id]">Doctor {{d.FirstName}} {{d.LastName}}. Email {{d.Email}}</a>                    
+                <div *ngFor="let d of doctors | doctorFilter:selectedDoctorName:'FirstName'">
+                    <a [routerLink]="['/doctors',d.Id]">Doctor {{d.FirstName | uppercase}} {{d.LastName | uppercase}}. Email {{d.Email | shorten:10}}</a><br/>
                 </div>
-            </div>            
+            </div>
         </div>
         <div class="col-sm">
             <router-outlet></router-outlet>
         </div>
     </div>
-    
+
 </div>
