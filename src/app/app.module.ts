@@ -17,6 +17,7 @@ import { PatientsComponent } from './patients/patients.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ShortenPipe } from './shorten.pipe';
 import { DoctorFilterPipe } from './pipes/doctor-filter.pipe';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { DoctorFilterPipe } from './pipes/doctor-filter.pipe';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [AppDataService, PatientDataService, AuthGuard, LoginService],
   bootstrap: [AppComponent]
