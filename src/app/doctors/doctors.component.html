@@ -8,12 +8,15 @@
                     <button class="btn btn-primary" type="button" name="addDoctor" (click)='onCreateDoctor()'>Add New Doctor</button>
                     <button class="btn btn-primary" type="button" name="addDoctor" (click)='onGetDoctors()'>Get Doctors</button>
                 </div>
+                <div class="alert alert-danger" *ngIf="error">An error occurred err:{{error}} err2: {{error2}}</div>
+
             </div>
 
             <div class="row">
                 <div *ngFor="let d of doctors | doctorFilter:selectedDoctorName:'FirstName'">
                     <a [routerLink]="['/doctors',d.Id]">Doctor {{d.FirstName | uppercase}} {{d.LastName | uppercase}}. Email {{d.Email | shorten:10}}</a><br/>
                 </div>
+
             </div>
         </div>
         <div class="col-sm">
