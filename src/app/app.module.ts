@@ -17,7 +17,8 @@ import { PatientsComponent } from './patients/patients.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ShortenPipe } from './shorten.pipe';
 import { DoctorFilterPipe } from './pipes/doctor-filter.pipe';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { AuthInterceptorService } from './interceptors/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,12 @@ import {HttpClientModule} from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [AppDataService, PatientDataService, AuthGuard, LoginService],
+  providers: [
+    AppDataService, PatientDataService, AuthGuard, LoginService,
+    {
+      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
