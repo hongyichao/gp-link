@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {AppDataService} from '../app-data.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Subject, Subscription, throwError } from 'rxjs';
 import {catchError} from 'rxjs/operators';
 @Component({
@@ -39,25 +39,39 @@ export class DoctorsComponent implements OnInit, OnDestroy
 
     newDoctor = {firstName: 'Terry', lastName: 'C', email: 'tc@gmail.com', phone: '12345678'};
 
-    this.httpClient.post('https://gplink-api.firebaseio.com/doctors.json', newDoctor).subscribe(response => {
+    this.httpClient.post(
+      'https://gplink-api.firebaseio.com/doctors.json', newDoctor,
+      {
+        headers: new HttpHeaders({'auth-token': 'xyzuguess'})
+      }
+    ).subscribe(response => {
       console.log(response);
     });
 
   }
 
   onGetDoctors() {
-    this.httpClient.get('https://gplink-api.firebaseio.com/doctors.json')
-    .pipe(catchError(errorRes => {
+      let searchParams = new HttpParams();
+      searchParams = searchParams.append('FirstName', 'Lucas');
+      searchParams = searchParams.append('LastName', 'Chao');
 
-      errorRes.message = errorRes.message + 'Angular Bon Bon';
-      return throwError(errorRes);
-    }))
-    .subscribe(doctors => {
-    console.log(doctors);
-    }, error => {
-      this.error = error.message;
-      this.errorSubject.next(error.message);
-    });
+      this.httpClient.get('https://gplink-api.firebaseio.com/doctors.json',
+        {
+          headers: new HttpHeaders({'auth-token': 'xyzuguess'}),
+          params: searchParams
+        }
+      )
+      .pipe(catchError(errorRes => {
+
+        errorRes.message = errorRes.message + 'Angular Bon Bon';
+        return throwError(errorRes);
+      }))
+      .subscribe(doctors => {
+      console.log(doctors);
+      }, error => {
+        this.error = error.message;
+        this.errorSubject.next(error.message);
+      });
   }
 
 }
