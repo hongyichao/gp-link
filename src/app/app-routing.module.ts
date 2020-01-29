@@ -7,20 +7,24 @@ import { LoginComponent } from './login/login.component';
 import {AuthGuard} from './auth-guard.service';
 import { PatientsComponent } from './patients/patients.component';
 import { PatientComponent } from './patient/patient.component';
+import { AuthComponent } from './auth/auth.component';
 
 const appRoutes: Routes = [
-  { 
-    path: 'doctors', component: DoctorsComponent, 
-    children:[{path: ':id', component: DoctorComponent}] 
+  {
+    path: 'doctors', component: DoctorsComponent,
+    children:[{path: ':id', component: DoctorComponent}]
   },
-  { path: 'appointments', component: AppointmentsComponent, canActivate:[AuthGuard] }, 
-  { 
-    path: 'patients', component: PatientsComponent, 
+  { path: 'appointments', component: AppointmentsComponent, canActivate:[AuthGuard] },
+  {
+    path: 'patients', component: PatientsComponent,
     children:[{path:':id', component: PatientComponent}],
-    canActivate:[AuthGuard] 
-  }, 
-  { path: 'login', component: LoginComponent }, 
-  { path: '**', redirectTo:'doctors' } 
+    canActivate:[AuthGuard]
+  },
+  {
+    path: 'auth', component: AuthComponent
+  },
+  { path: 'login', component: LoginComponent },
+  { path: '**', redirectTo: 'doctors' }
 ];
 
 @NgModule({

@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row">
+        <form (ngSubmit)="onFormSubmit(f)" #f="ngForm">
+            <div class="form-group">
+                <label for="email">Email</label> <input id="email" ngModel name="email" class="form-control" required #email="ngModel" />
+                <span class="help-block" *ngIf="!email.valid && email.touched">Email is required</span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label><input id="password" ngModel name="password" class="form-control" required #password="ngModel" />
+                <span class="help-block" *ngIf="!password.valid && password.touched">Password is required</span>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
