@@ -20,7 +20,8 @@ import { DoctorFilterPipe } from './pipes/doctor-filter.pipe';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AuthInterceptorService } from './interceptors/auth-interceptor';
 import { AuthComponent } from './auth/auth.component';
-import { AlertComponent } from './shared/alert/alert.component';
+import { AlertModalComponent, AlertModalContent } from './shared/alert/alert.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { AlertComponent } from './shared/alert/alert.component';
     ShortenPipe,
     DoctorFilterPipe,
     AuthComponent,
-    AlertComponent
+    AlertModalComponent,
+    AlertModalContent
   ],
   imports: [
     AppRoutingModule,
@@ -44,7 +46,8 @@ import { AlertComponent } from './shared/alert/alert.component';
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [
     AppDataService, PatientDataService, AuthGuard, LoginService,
@@ -52,6 +55,7 @@ import { AlertComponent } from './shared/alert/alert.component';
       provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AlertModalContent]
 })
 export class AppModule { }
