@@ -17,6 +17,7 @@ export class DoctorsComponent implements OnInit, OnDestroy
   error2 = null;
   errorSubject = new Subject();
   errorSubscription: Subscription;
+  isAlertVisible = false;
 
   constructor(private appDataService: AppDataService, private httpClient: HttpClient) {
     this.doctors = appDataService.GetDoctors();
@@ -72,6 +73,19 @@ export class DoctorsComponent implements OnInit, OnDestroy
         this.error = error.message;
         this.errorSubject.next(error.message);
       });
+  }
+
+  showAlert() {
+    if (this.isAlertVisible) {
+      this.isAlertVisible = false;
+    } else {
+      this.error = 'Hello! how are you?';
+      this.isAlertVisible = true;
+    }
+  }
+
+  onHandleAlerClose() {
+    this.isAlertVisible = false;
   }
 
 }

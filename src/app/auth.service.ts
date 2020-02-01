@@ -17,9 +17,11 @@ export class AuthService {
         returnSecureToken: true
       },
       {
-        headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'}),
+        headers: {'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST'}
       }
-    )
+    );
 
 
   }

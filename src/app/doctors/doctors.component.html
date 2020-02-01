@@ -3,10 +3,13 @@
     <div class="row">
         <div class="col-sm">
             <div class="row">
+                <app-alert *ngIf="isAlertVisible" [alertMsg]="error" (close)="onHandleAlerClose()"></app-alert>
                 <div class="col-10"><input class="form-control" name="searchDoctors" [(ngModel)]="selectedDoctorName" /> </div>
                 <div class="col-2">
                     <button class="btn btn-primary" type="button" name="addDoctor" (click)='onCreateDoctor()'>Add New Doctor</button>
                     <button class="btn btn-primary" type="button" name="addDoctor" (click)='onGetDoctors()'>Get Doctors</button>
+
+                    <button class="btn btn-primary" type="button" name="showAlert" (click)="showAlert()">show alert</button>
                 </div>
                 <div class="alert alert-danger" *ngIf="error">An error occurred err:{{error}} err2: {{error2}}</div>
 

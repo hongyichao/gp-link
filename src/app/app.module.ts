@@ -20,6 +20,7 @@ import { DoctorFilterPipe } from './pipes/doctor-filter.pipe';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AuthInterceptorService } from './interceptors/auth-interceptor';
 import { AuthComponent } from './auth/auth.component';
+import { AlertComponent } from './shared/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AuthComponent } from './auth/auth.component';
     PatientsComponent,
     ShortenPipe,
     DoctorFilterPipe,
-    AuthComponent
+    AuthComponent,
+    AlertComponent
   ],
   imports: [
     AppRoutingModule,
