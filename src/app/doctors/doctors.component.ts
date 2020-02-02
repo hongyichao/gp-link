@@ -3,6 +3,9 @@ import {AppDataService} from '../app-data.service';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Subject, Subscription, throwError } from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AlertModalComponent } from '../shared/alert-modal/alert-modal.component';
+
 @Component({
   selector: 'app-doctors',
   templateUrl: './doctors.component.html',
@@ -19,7 +22,7 @@ export class DoctorsComponent implements OnInit, OnDestroy
   errorSubscription: Subscription;
   isAlertVisible = false;
 
-  constructor(private appDataService: AppDataService, private httpClient: HttpClient) {
+  constructor(private appDataService: AppDataService, private httpClient: HttpClient, private modalService: NgbModal) {
     this.doctors = appDataService.GetDoctors();
     this.selectedDoctorName = '';
   }
@@ -84,10 +87,14 @@ export class DoctorsComponent implements OnInit, OnDestroy
     }
   }
 
+  showAlertModal() {
+    const modalRef = this.modalService.open(AlertModalComponent);
+    modalRef.componentInstance.name = this.error;
+  }
+
   onHandleAlerClose() {
     this.isAlertVisible = false;
   }
-
 }
 
 export class Doctor {
