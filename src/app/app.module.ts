@@ -12,8 +12,6 @@ import {PatientDataService} from './patient-data.service';
 import {LoginComponent } from './login/login.component';
 import {AuthGuard} from './auth-guard.service';
 import {LoginService} from './login.service';
-import { PatientComponent } from './patient/patient.component';
-import { PatientsComponent } from './patients/patients.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ShortenPipe } from './shorten.pipe';
 import { DoctorFilterPipe } from './pipes/doctor-filter.pipe';
@@ -23,6 +21,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AlertModalComponent } from './shared/alert-modal/alert-modal.component';
 import { AlertComponent } from './shared/alert/alert.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { PatientModule } from './patient.module';
 
 @NgModule({
   declarations: [
@@ -33,8 +32,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AppointmentComponent,
     AppointmentsComponent,
     LoginComponent,
-    PatientComponent,
-    PatientsComponent,
     ShortenPipe,
     DoctorFilterPipe,
     AuthComponent,
@@ -45,10 +42,10 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    PatientModule
   ],
   providers: [
     AppDataService, PatientDataService, AuthGuard, LoginService,
