@@ -8,13 +8,18 @@ import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
   templateUrl: './patient.component.html',
   styleUrls: ['./patient.component.css']
 })
-export class PatientComponent implements OnInit 
+export class PatientComponent implements OnInit
 {
   patient:any;
   genders=['male', 'female'];
 
+  get patientNoteControls() {
+    return (this.patientForm.get('notes') as FormArray).controls;
+
+  }
+
   constructor(private dataService: PatientDataService, private route: ActivatedRoute) { }
-  
+
   patientForm = new FormGroup({
       firstName: new FormControl(null, Validators.required),
       lastName: new FormControl(null, Validators.required),
@@ -23,7 +28,7 @@ export class PatientComponent implements OnInit
       notes: new FormArray([])
   });
 
-  ngOnInit() 
+  ngOnInit()
   {
     this.route.params.subscribe(params=>
     {
@@ -37,7 +42,7 @@ export class PatientComponent implements OnInit
     console.log(this.patientForm.value);
   }
 
-  onAddNotes()  
+  onAddNotes()
   {
     const control = new FormControl(null);
     (<FormArray>this.patientForm.get('notes')).push(control);

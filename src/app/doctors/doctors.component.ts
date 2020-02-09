@@ -39,9 +39,9 @@ export class DoctorsComponent implements OnInit, OnDestroy
     this.errorSubscription.unsubscribe();
   }
 
-  onCreateDoctor(newDoctor: {firstName: string, lastName: string, email: string, phone: string}) {
+  onCreateDoctor() {
 
-    newDoctor = {firstName: 'Terry', lastName: 'C', email: 'tc@gmail.com', phone: '12345678'};
+    const newDoctor = {firstName: 'Terry', lastName: 'C', email: 'tc@gmail.com', phone: '12345678'};
 
     this.httpClient.post(
       'https://gplink-api.firebaseio.com/doctors.json', newDoctor,

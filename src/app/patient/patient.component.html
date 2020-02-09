@@ -17,14 +17,14 @@
             </div>
             <div class="radio" *ngFor="let g of genders">
                 <label>
-                    <input type="radio" formControlName ="gender" [value]= "g" [(ngModel)]="patient.Gender">{{g}}                
+                    <input type="radio" formControlName ="gender" [value]= "g" [(ngModel)]="patient.Gender">{{g}}
                 </label>
             </div>
 
             <div formArrayName='notes'>
                 <h4>Notes</h4>
                 <button class="btn btn-info" tyep="button" (click)="onAddNotes()">Add Note</button>
-                <div class="form-group" *ngFor="let noteControl of patientForm.get('notes').controls; let i = index;">
+                <div class="form-group" *ngFor="let noteControl of patientNoteControls; let i = index;">
                     <input type="text" class="form-control" [formControlName]="i">
                 </div>
             </div>
