@@ -27,10 +27,10 @@ import { DoctorModule } from './doctor.module';
     AuthComponent
   ],
   imports: [
-    AppRoutingModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    AppRoutingModule,
     PatientModule,
     DoctorModule
   ],

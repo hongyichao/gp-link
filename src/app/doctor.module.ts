@@ -5,11 +5,12 @@ import { DoctorFilterPipe } from './pipes/doctor-filter.pipe';
 import { AlertComponent } from './shared/alert/alert.component';
 import { AlertModalComponent } from './shared/alert-modal/alert-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ShortenPipe } from './shorten.pipe';
+import { DoctorRoutingModule } from './doctor-routing.module';
+
 
 @NgModule({
   declarations: [
@@ -23,10 +24,9 @@ import { ShortenPipe } from './shorten.pipe';
   entryComponents: [AlertModalComponent],
   imports: [
     NgbModule,
-    AppRoutingModule,
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    DoctorRoutingModule
   ]
 
 })
