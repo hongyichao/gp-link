@@ -9,17 +9,11 @@ import { PatientsComponent } from './patients/patients.component';
 import { PatientComponent } from './patient/patient.component';
 import { AuthComponent } from './auth/auth.component';
 import { DoctorResolverService } from './doctors/doctor-resolver.service';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 const appRoutes: Routes = [
   {
-    path: 'doctors', component: DoctorsComponent,
-    children: [
-      {
-        path: ':id',
-        component: DoctorComponent,
-        resolve: [DoctorResolverService]
-      }
-    ]
+    path: '', redirectTo: '/doctors', pathMatch: 'full'
   },
   { path: 'appointments', component: AppointmentsComponent, canActivate:[AuthGuard] },
   {
@@ -30,8 +24,7 @@ const appRoutes: Routes = [
   {
     path: 'auth', component: AuthComponent
   },
-  { path: 'login', component: LoginComponent },
-  { path: '**', redirectTo: 'doctors' }
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({

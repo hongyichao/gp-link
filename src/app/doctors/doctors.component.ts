@@ -22,7 +22,8 @@ export class DoctorsComponent implements OnInit, OnDestroy
   errorSubscription: Subscription;
   isAlertVisible = false;
 
-  constructor(private appDataService: AppDataService, private httpClient: HttpClient, private modalService: NgbModal) {
+  constructor(private appDataService: AppDataService, private httpClient: HttpClient, private modalService: NgbModal
+    ) {
     this.doctors = appDataService.GetDoctors();
     this.selectedDoctorName = '';
   }

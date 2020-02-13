@@ -15,7 +15,8 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AuthInterceptorService } from './interceptors/auth-interceptor';
 import { AuthComponent } from './auth/auth.component';
 import { PatientModule } from './patient.module';
-import { DoctorModule } from './doctor.module';
+import { DoctorModule } from './doctors/doctor.module';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DoctorModule } from './doctor.module';
     AppointmentComponent,
     AppointmentsComponent,
     LoginComponent,
-    AuthComponent
+    AuthComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,
