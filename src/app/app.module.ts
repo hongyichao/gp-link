@@ -32,9 +32,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule,
     PatientModule,
-    DoctorModule
+    AppRoutingModule
   ],
   providers: [
     AppDataService, PatientDataService, AuthGuard, LoginService,

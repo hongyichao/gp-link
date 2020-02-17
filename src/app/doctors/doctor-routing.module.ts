@@ -6,7 +6,7 @@ import { DoctorResolverService } from './doctor-resolver.service';
 
 const doctorRoutes: Routes = [
   {
-    path: 'doctors', component: DoctorsComponent,
+    path: '', component: DoctorsComponent,
     children: [
       {
         path: ':id',
