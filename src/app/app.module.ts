@@ -13,10 +13,13 @@ import {LoginService} from './login.service';
 import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AuthInterceptorService } from './interceptors/auth-interceptor';
-import { AuthComponent } from './auth/auth.component';
 import { PatientModule } from './patient.module';
 import { DoctorModule } from './doctors/doctor.module';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { CommonModule } from '@angular/common';
+import { browser } from 'protractor';
+import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared.module';
 
 @NgModule({
   declarations: [
@@ -25,15 +28,14 @@ import { NotfoundComponent } from './notfound/notfound.component';
     AppointmentComponent,
     AppointmentsComponent,
     LoginComponent,
-    AuthComponent,
     NotfoundComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpClientModule,
-    PatientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AuthModule,
+    SharedModule
   ],
   providers: [
     AppDataService, PatientDataService, AuthGuard, LoginService,

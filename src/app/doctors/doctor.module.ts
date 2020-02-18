@@ -13,6 +13,7 @@ import { ShortenPipe } from '../shorten.pipe';
 import { DoctorRoutingModule } from './doctor-routing.module';
 import { DoctorResolverService } from './doctor-resolver.service';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared.module';
 
 
 @NgModule({
@@ -27,10 +28,9 @@ import { CommonModule } from '@angular/common';
   entryComponents: [AlertModalComponent],
   imports: [
     NgbModule,
-    CommonModule,
-    FormsModule,
     RouterModule,
-    DoctorRoutingModule
+    DoctorRoutingModule,
+    SharedModule
   ]
 
 })

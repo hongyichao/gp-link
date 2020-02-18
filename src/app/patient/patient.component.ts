@@ -32,8 +32,12 @@ export class PatientComponent implements OnInit
   {
     this.route.params.subscribe(params=>
     {
-      let patientId = params["id"];
+      let patientId = params['id'];
       this.patient = this.dataService.GetPatientById(patientId);
+      this.patientForm.get('firstName').setValue(this.patient.FirstName);
+      this.patientForm.get('lastName').setValue(this.patient.LastName);
+      this.patientForm.get('email').setValue(this.patient.Email);
+      this.patientForm.get('gender').setValue(this.patient.Gender);
     });
   }
 
