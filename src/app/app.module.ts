@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import {FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
-import { AppointmentComponent } from './appointment/appointment.component';
-import { AppointmentsComponent } from './appointments/appointments.component';
 import {AppDataService} from './app-data.service';
 import {PatientDataService} from './patient-data.service';
 import {LoginComponent } from './login/login.component';
@@ -13,22 +11,20 @@ import {LoginService} from './login.service';
 import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AuthInterceptorService } from './interceptors/auth-interceptor';
-import { PatientModule } from './patient.module';
-import { DoctorModule } from './doctors/doctor.module';
 import { NotfoundComponent } from './notfound/notfound.component';
-import { CommonModule } from '@angular/common';
-import { browser } from 'protractor';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared.module';
+import { RatingComponent } from './shared/rating/rating.component';
+import { GpRatingComponent } from './gp-rating/gp-rating.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppHeaderComponent,
-    AppointmentComponent,
-    AppointmentsComponent,
     LoginComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    RatingComponent,
+    GpRatingComponent
   ],
   imports: [
     BrowserModule,

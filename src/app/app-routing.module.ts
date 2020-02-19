@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes, PreloadAllModules} from '@angular/router';
-import { AppointmentsComponent } from './appointments/appointments.component';
 import { LoginComponent } from './login/login.component';
 import {AuthGuard} from './auth-guard.service';
 import { AuthComponent } from './auth/auth.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { GpRatingComponent } from './gp-rating/gp-rating.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/doctors', pathMatch: 'full'},
   { path: 'doctors', loadChildren: () => import('./doctors/doctor.module').then(m => m.DoctorModule) },
   { path: 'patients', loadChildren: () => import('./patient.module').then(m => m.PatientModule) },
-  { path: 'appointments', component: AppointmentsComponent, canActivate: [AuthGuard] },
+  { path: 'gprating', component: GpRatingComponent, canActivate: [AuthGuard] },
   {
     path: 'auth', component: AuthComponent
   },
