@@ -1,19 +1,66 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, AfterViewInit  } from '@angular/core';
 import { LoginService } from '../login.service';
 import { Subscription } from 'rxjs';
+
+declare const gapi: any;
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   IsLoggedIn: boolean;
 
   LoginStatusSub = new Subscription;
   constructor(private loginService: LoginService) {
     this.IsLoggedIn = this.loginService.IsLoggedIn.value;
-   }
+  }
+
+
+  public auth2: any;
+  public googleInit() {
+    gapi.load('auth2', () => {
+      this.auth2 = gapi.auth2.init({
+        client_id: '144812582479-fbr4silmo92ao1djmqj1fh40o7rsj6ti.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        scope: 'profile email'
+      });
+      this.attachSignin(document.getElementById('googleBtn'));
+    });
+  }
+
+  public gUser:any;
+
+  public attachSignin(element) {
+    this.auth2.attachClickHandler(element, {},
+      (googleUser) => {
+this.gUser = googleUser;
+        let profile = googleUser.getBasicProfile();
+        console.log('Token || ' + googleUser.getAuthResponse().id_token);
+        console.log('ID: ' + profile.getId());
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail());
+        //YOUR CODE HERE
+        console.log(gapi.auth2.getAuthInstance().isSignedIn);
+
+      }, (error) => {
+        alert(JSON.stringify(error, undefined, 2));
+      });
+  }
+
+  ngAfterViewInit() {
+        this.googleInit();
+  }
+
+  signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function() {
+        console.log('User signed out.');
+        console.log(gapi.auth2.getAuthInstance().isSignedIn);
+    });
+  }
 
   ngOnInit() {
     this.loginService.IsLoggedIn.subscribe(isloggedIn=>{this.IsLoggedIn = isloggedIn});
@@ -33,13 +80,5 @@ export class LoginComponent implements OnInit, OnDestroy {
   {
     this.loginService.ToLogOut();
 
-  }
-
-  onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
   }
 }
