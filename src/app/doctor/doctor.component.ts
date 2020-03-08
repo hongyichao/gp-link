@@ -1,51 +1,77 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {AppDataService} from '../app-data.service';
 import {Subscription, fromEventPattern} from 'rxjs';
 import { NgForm } from '@angular/forms';
+import {Doctor} from '../shared/doctor.model';
 
 @Component({
   selector: 'app-doctor',
   templateUrl: './doctor.component.html',
   styleUrls: ['./doctor.component.css']
 })
-export class DoctorComponent implements OnInit
+export class DoctorComponent implements OnInit, AfterViewInit
 {
   @ViewChild('f',  {static: false}) drForm: NgForm;
   doctor: any;
   doctorId:string;
+  editMode = false;
   private routeSub: Subscription;
 
   constructor(private appDataService: AppDataService, private route: ActivatedRoute)
   {
 
-   }
+  }
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(
       (params: Params) => {
       this.doctorId = params['id'];
-      this.doctor = this.appDataService.GetDoctorById(this.doctorId);
+      if (this.doctorId) {
+        this.doctor = this.appDataService.GetDoctorById(this.doctorId);
+        this.editMode = true;
+      } else {
+        this.doctor = {};
+      }
     });
+
   }
 
-  OnFormSubmit(ngForm: NgForm){
+  ngAfterViewInit() {
+  }
 
+  private initForm() {
+
+  }
+
+  OnFormSubmit(ngForm: NgForm) {
     console.log(ngForm.value);
 
     const frmValue = ngForm.value;
 
-    var drCount= this.appDataService.GetDoctors().length;
+    const aDoctor: Doctor = {
+      Id: null,
+      FirstName: frmValue.drFirstName,
+      LastName: frmValue.drLastName,
+      Email: frmValue.drEmail,
+      Phone: frmValue.drPhone,
+      Gender: null
+    };
 
-    var newDoctor = {FirstName: frmValue.drFirstName, LastName: frmValue.drLastName, Email: frmValue.drEmail, Phone: frmValue.drPhone, Id: (drCount+1).toString(), Gender:"male" };
+    if (this.editMode) {
+      aDoctor.Id = this.doctorId;
+      this.appDataService.updateDoctor(aDoctor);
+    } else {
+      this.doctorId = this.appDataService.AddDoctor(aDoctor);
+      this.editMode = true;
+    }
 
-    this.appDataService.AddDoctor(newDoctor);
   }
 
-  OnResetForm()
-  {
+  OnResetForm() {
     this.drForm.reset();
-
   }
+
+
 
 }

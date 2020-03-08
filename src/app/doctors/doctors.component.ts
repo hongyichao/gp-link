@@ -2,9 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {AppDataService} from '../app-data.service';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Subject, Subscription, throwError } from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertModalComponent } from '../shared/alert-modal/alert-modal.component';
+import {Doctor} from '../shared/doctor.model';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-doctors',
@@ -20,15 +22,27 @@ export class DoctorsComponent implements OnInit, OnDestroy
   error2 = null;
   errorSubject = new Subject();
   errorSubscription: Subscription;
+  dataSubscription: Subscription;
   isAlertVisible = false;
 
-  constructor(private appDataService: AppDataService, private httpClient: HttpClient, private modalService: NgbModal
-    ) {
-    this.doctors = appDataService.GetDoctors();
+  constructor(
+    private appDataService: AppDataService,
+    private httpClient: HttpClient,
+    private modalService: NgbModal,
+    private router: Router,
+    private route: ActivatedRoute) {
+
     this.selectedDoctorName = '';
   }
 
   ngOnInit() {
+    this.doctors = this.appDataService.GetDoctors();
+    this.GetDrsFromServer();
+    this.dataSubscription = this.appDataService.doctorsChanged.subscribe(
+      (doctors: Doctor[]) => {
+        this.doctors = doctors;
+      }
+    );
 
     this.errorSubscription = this.errorSubject.subscribe(errorMsg => {
         this.error2 = errorMsg;
@@ -36,9 +50,64 @@ export class DoctorsComponent implements OnInit, OnDestroy
 
   }
 
+  private GetDrsFromServer() {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('FirstName', 'Lucas');
+    searchParams = searchParams.append('LastName', 'Chao');
+
+    this.httpClient.get('https://gplink-api.firebaseio.com/doctors.json',
+      {
+        headers: new HttpHeaders({'auth-token': 'xyzuguess'}),
+        params: searchParams
+      }
+    )
+    .pipe(map(responseData => {
+      const postArray = [];
+      for (const key in responseData) {
+        if(responseData.hasOwnProperty(key)) {
+
+          const respData = responseData[key];
+          const aDoctor: Doctor = {
+            Id: null,
+            FirstName: respData.firstName,
+            LastName: respData.lastName,
+            Email: respData.email,
+            Phone: respData.phone,
+            Gender: null
+          };
+
+
+          postArray.push(aDoctor);
+        }
+      }
+      return postArray;
+    }))
+    .pipe(catchError(errorRes => {
+      errorRes.message = errorRes.message + 'Angular Bon Bon';
+      return throwError(errorRes);
+    }))
+    .subscribe(doctors => {
+      console.log(doctors);
+
+      for(var i=0; i< doctors.length; i++) {
+        this.appDataService.AddDoctor(doctors[i]);
+      }
+
+    }, error => {
+      this.error = error.message;
+      this.errorSubject.next(error.message);
+    });
+  }
+
   ngOnDestroy() {
     this.errorSubscription.unsubscribe();
+    this.dataSubscription.unsubscribe();
   }
+
+  OnAddDoctor() {
+    this.router.navigate(['new'], {relativeTo: this.route});
+  }
+
 
   onCreateDoctor() {
 
@@ -53,30 +122,6 @@ export class DoctorsComponent implements OnInit, OnDestroy
       console.log(response);
     });
 
-  }
-
-  onGetDoctors() {
-      let searchParams = new HttpParams();
-      searchParams = searchParams.append('FirstName', 'Lucas');
-      searchParams = searchParams.append('LastName', 'Chao');
-
-      this.httpClient.get('https://gplink-api.firebaseio.com/doctors.json',
-        {
-          headers: new HttpHeaders({'auth-token': 'xyzuguess'}),
-          params: searchParams
-        }
-      )
-      .pipe(catchError(errorRes => {
-
-        errorRes.message = errorRes.message + 'Angular Bon Bon';
-        return throwError(errorRes);
-      }))
-      .subscribe(doctors => {
-      console.log(doctors);
-      }, error => {
-        this.error = error.message;
-        this.errorSubject.next(error.message);
-      });
   }
 
   showAlert() {
@@ -96,13 +141,4 @@ export class DoctorsComponent implements OnInit, OnDestroy
   onHandleAlerClose() {
     this.isAlertVisible = false;
   }
-}
-
-export class Doctor {
-  public Id: string;
-  public FirstName: string;
-  public LastName: string;
-  public Email: string;
-  public Phone: string ;
-  public Gender: string;
 }

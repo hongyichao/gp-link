@@ -1,7 +1,12 @@
 <div class="container">
-
     <div class="row">
         <div class="col-sm">
+            <div class="row">
+                <div class="col-12">
+                    <button class="btn btn-primary" (click)="OnAddDoctor()">Add New Doctor</button>
+                </div>
+            </div>
+            <br/>
             <div class="row">
                 <app-alert *ngIf="isAlertVisible" [alertMsg]="error" (closeAlert)="onHandleAlerClose()"></app-alert>
                 <div class="col-12"><input class="form-control" name="searchDoctors" [(ngModel)]="selectedDoctorName" /> </div>
@@ -20,8 +25,6 @@
                 <div class="col-12">
 
                     <button class="btn btn-primary" type="button" name="addDoctor" (click)='onCreateDoctor()'>Add New Doctor</button>
-                    <br/><br/>
-                    <button class="btn btn-primary" type="button" name="addDoctor" (click)='onGetDoctors()'>Get Doctors</button>
                     <br/><br/>
                     <button class="btn btn-primary" type="button" name="showAlert" (click)="showAlert()">show alert</button>
                     <br/><br/>

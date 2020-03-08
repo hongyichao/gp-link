@@ -9,9 +9,12 @@ const doctorRoutes: Routes = [
     path: '', component: DoctorsComponent,
     children: [
       {
+        path: 'new',
+        component: DoctorComponent
+      },
+      {
         path: ':id',
-        component: DoctorComponent,
-        resolve: [DoctorResolverService]
+        component: DoctorComponent
       }
     ]
   }
