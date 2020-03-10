@@ -1,30 +1,27 @@
 import { Injectable } from '@angular/core';
-import {CanActivate, Router, Route,  ActivatedRouteSnapshot, RouterStateSnapshot,} from '@angular/router';
+import {CanActivate, Router, Route,  ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute} from '@angular/router';
 import { LoginService } from './login.service';
 import { Observable, Subject } from 'rxjs';
 
 
 @Injectable({
-providedIn:'root'
+providedIn: 'root'
 })
-export class AuthGuard implements CanActivate 
-{
-    allowActivate:boolean;
+export class AuthGuard implements CanActivate {
+    allowActivate: boolean;
 
-    constructor(private loginService: LoginService, private router: Router)
-    {
-        
-    }
+    constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {}
 
-    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot):  Observable<boolean> | Promise<boolean> | boolean
-    {
-        this.loginService.IsLoggedIn.subscribe(isLoggedIn=>{
+    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+        this.loginService.IsLoggedIn.subscribe(isLoggedIn => {
             this.allowActivate = isLoggedIn;
         });
-        if(this.allowActivate){
+        if (this.allowActivate) {
 
             return true;
         }
+
+        this.loginService.SetRedirectPageUrl('/doctors')
 
         this.router.navigate(['/login']);
         return false;
