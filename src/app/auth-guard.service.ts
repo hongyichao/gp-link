@@ -21,9 +21,7 @@ export class AuthGuard implements CanActivate {
             return true;
         }
 
-        this.loginService.SetRedirectPageUrl('/doctors')
-
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login'], {queryParams:{returnUrl: state.url}});
         return false;
     }
 }

@@ -16,12 +16,4 @@ export class LoginService
     ToLogOut(): void {
         this.IsLoggedIn.next(false);
     }
-
-    SetRedirectPageUrl(url: string) {
-      this.LogdedInRedirectPage = url;
-    }
-
-    GetRedirectPageUrl(): string {
-      return this.LogdedInRedirectPage;
-    }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, NgZone, AfterViewInit  } from '@angular/core';
 import { LoginService } from '../login.service';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare const gapi: any;
 
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   LoginStatusSub = new Subscription;
 
-  constructor(private loginService: LoginService, private router: Router) {
+  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {
     this.IsLoggedIn = this.loginService.IsLoggedIn.value;
   }
 
@@ -75,8 +75,8 @@ this.gUser = googleUser;
   ToLogin():void
   {
     this.loginService.ToLogin();
-    const redirectUri = this.loginService.GetRedirectPageUrl();
-    this.router.navigate([redirectUri]);
+    const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+    this.router.navigate([returnUrl]);
   }
 
   ToLogout():void
