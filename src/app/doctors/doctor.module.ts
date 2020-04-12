@@ -8,7 +8,6 @@ import { AlertModalComponent } from '../shared/alert-modal/alert-modal.component
 import { ShortenPipe } from '../shorten.pipe';
 import { DoctorRoutingModule } from './doctor-routing.module';
 import { DoctorResolverService } from './doctor-resolver.service';
-
 import { SharedModule } from '../shared.module';
 
 

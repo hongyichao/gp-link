@@ -16,6 +16,7 @@ import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared.module';
 import { RatingComponent } from './shared/rating/rating.component';
 import { GpRatingComponent } from './gp-rating/gp-rating.component';
+import {CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js';
 
 @NgModule({
   declarations: [
