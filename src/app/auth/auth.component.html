@@ -1,6 +1,15 @@
 <div class="container">
+    <br/>
     <div class="row">
-        <form (ngSubmit)="onFormSubmit(f)" #f="ngForm">
+        <b>Sign Up</b>
+    </div>
+    <br/>
+    <div class="row">
+        <form (ngSubmit)="onFormSubmit(sf)" #sf="ngForm">
+            <div class="form-group">
+                <label for="username">User Name</label> <input id="username" ngModel name="username" class="form-control" required #username="ngModel" />
+                <span class="help-block" *ngIf="!username.valid && username.touched">Username is required</span>
+            </div>
             <div class="form-group">
                 <label for="email">Email</label> <input id="email" ngModel name="email" class="form-control" required #email="ngModel" />
                 <span class="help-block" *ngIf="!email.valid && email.touched">Email is required</span>
@@ -9,6 +18,27 @@
             <div class="form-group">
                 <label for="password">Password</label><input id="password" ngModel name="password" class="form-control" required #password="ngModel" />
                 <span class="help-block" *ngIf="!password.valid && password.touched">Password is required</span>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <hr>
+    <br/>
+    <div class="row">
+        <b>Confirm your registration with verification code</b>
+    </div>
+    <br/>
+    <div class="row">
+        <form (ngSubmit)="onConfirmFormSubmit(cf)" #cf="ngForm">
+            <div class="form-group">
+                <label for="vusername">User Name</label> <input id="vusername" ngModel name="vusername" class="form-control" required #email="ngModel" />
+
+            </div>
+
+            <div class="form-group">
+                <label for="vcode">Verification Code</label><input id="vcode" ngModel name="vcode" class="form-control" required #password="ngModel" />
+
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

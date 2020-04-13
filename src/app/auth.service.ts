@@ -2,6 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {AuthResponseData} from './interfaces/authresponsedata';
 import {environment} from '../environments/environment';
+import {CognitoUserPool, CognitoUserAttribute, CognitoUser } from 'amazon-cognito-identity-js';
+
+const PoolData = {
+  UserPoolId: 'us-east-1_etXj9FOMw',
+  ClientId: '377bm6ed0u7qh0ob8882iuqs25'
+};
+const UserPool = new CognitoUserPool(PoolData);
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -10,21 +17,37 @@ export class AuthService {
 
   }
 
-  signup(email: string, password: string) {
-    return this.httpclient.post(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseApiKey,
-      {
-        email: email,
-        password: password,
-        returnSecureToken: true
-      },
-      {
-        headers: {'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST'}
-      }
-    );
+  signup(username: string, email: string, password: string) {
+    const attributeList = [];
 
+    attributeList.push(new CognitoUserAttribute({Name: 'email', Value: email}));
+
+    UserPool.signUp(username, password, attributeList, null, (err, result) => {
+       if (err) {
+         alert(err.message || JSON.stringify(err));
+         return;
+       }
+
+       const cognitoUser = result.user;
+       console.log('user name is ' + cognitoUser.getUsername());
+
+     });
+  }
+
+  confirmUser(username: string, verificationCode: string) {
+    const userData = {
+      Username: username,
+      Pool: UserPool,
+    };
+
+    const cognitoUser = new CognitoUser(userData);
+    cognitoUser.confirmRegistration(verificationCode, true, (err, result) => {
+      if (err) {
+        alert(err.message || JSON.stringify(err));
+        return;
+      }
+      console.log('call result: ' + result);
+    });
 
   }
 
