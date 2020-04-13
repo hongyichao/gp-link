@@ -36,12 +36,12 @@
     <div class="row">
         <form (ngSubmit)="onConfirmFormSubmit(cf)" #cf="ngForm">
             <div class="form-group">
-                <label for="vusername">User Name</label> <input id="vusername" ngModel name="vusername" class="form-control" required #email="ngModel" />
+                <label for="vusername">User Name</label> <input id="vusername" ngModel name="vusername" class="form-control" required #vusername="ngModel" />
 
             </div>
 
             <div class="form-group">
-                <label for="vcode">Verification Code</label><input id="vcode" ngModel name="vcode" class="form-control" required #password="ngModel" />
+                <label for="vcode">Verification Code</label><input id="vcode" ngModel name="vcode" class="form-control" required #vcode="ngModel" />
 
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>

@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, NgZone, AfterViewInit  } from '@angular/c
 import { LoginService } from '../login.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 declare const gapi: any;
 
@@ -15,7 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   LoginStatusSub = new Subscription;
 
-  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {
+  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute, private authService: AuthService) {
     this.IsLoggedIn = this.loginService.IsLoggedIn.value;
   }
 
@@ -83,5 +85,17 @@ this.gUser = googleUser;
   {
     this.loginService.ToLogOut();
 
+  }
+
+  onLoginFormSubmit(ngForm: NgForm) {
+    const formValue = ngForm.value;
+
+    const result = this.authService.signin(formValue.username, formValue.password);
+
+    if (result === true) {
+      this.IsLoggedIn = true;
+    } else {
+      this.IsLoggedIn = false;
+    }
   }
 }

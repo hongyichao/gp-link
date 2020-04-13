@@ -11,4 +11,20 @@
         <button id="googleBtn" class="btn btn-primary">Google Sign In</button>
         <button class="btn btn-primary" (click)="signOut()">Sign out</button>
     </div>
+    <div class="row">
+        <br/>
+        <div>AWS Login</div>
+        <form (ngSubmit)="onLoginFormSubmit(loginf)" #loginf="ngForm">
+            <div class="form-group">
+                <label for="username">Username</label> <input id="username" ngModel name="username" class="form-control" required #username="ngModel" />
+
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label><input id="password" ngModel name="password" class="form-control" required #password="ngModel" />
+
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 </div>

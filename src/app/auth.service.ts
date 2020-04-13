@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {AuthResponseData} from './interfaces/authresponsedata';
 import {environment} from '../environments/environment';
-import {CognitoUserPool, CognitoUserAttribute, CognitoUser } from 'amazon-cognito-identity-js';
+import {CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails, CognitoUserSession } from 'amazon-cognito-identity-js';
 
 const PoolData = {
   UserPoolId: 'us-east-1_etXj9FOMw',
@@ -48,6 +48,37 @@ export class AuthService {
       console.log('call result: ' + result);
     });
 
+  }
+
+  signin(username: string, password: string): any {
+    const authenticationData = {
+      Username: username,
+      Password: password,
+    };
+    const authenticationDetails = new AuthenticationDetails(
+      authenticationData
+    );
+
+    const userData = {
+      Username: username,
+      Pool: UserPool,
+    };
+    const cognitoUser = new CognitoUser(userData);
+    var result = cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: function(result: CognitoUserSession) {
+        console.log(result);
+        const accessToken = result.getAccessToken().getJwtToken();
+
+        return true;
+      },
+
+      onFailure: function(err) {
+        alert(err.message || JSON.stringify(err));
+        return false;
+      },
+    });
+
+    return result;
   }
 
 }
