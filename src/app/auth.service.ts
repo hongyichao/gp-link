@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {AuthResponseData} from './interfaces/authresponsedata';
 import {environment} from '../environments/environment';
 import {CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails, CognitoUserSession } from 'amazon-cognito-identity-js';
+import { BehaviorSubject } from 'rxjs';
 
 const PoolData = {
   UserPoolId: 'us-east-1_etXj9FOMw',
@@ -13,6 +14,7 @@ const UserPool = new CognitoUserPool(PoolData);
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
+  IsLoggedIn = new  BehaviorSubject<boolean>(false);
   constructor(private httpclient: HttpClient) {
 
   }
@@ -50,7 +52,7 @@ export class AuthService {
 
   }
 
-  signin(username: string, password: string): any {
+  signin(username: string, password: string) {
     const authenticationData = {
       Username: username,
       Password: password,
@@ -64,21 +66,19 @@ export class AuthService {
       Pool: UserPool,
     };
     const cognitoUser = new CognitoUser(userData);
-    var result = cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: function(result: CognitoUserSession) {
-        console.log(result);
-        const accessToken = result.getAccessToken().getJwtToken();
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: (userSession: CognitoUserSession): any => {
+        console.log(userSession);
+        const accessToken = userSession.getAccessToken().getJwtToken();
 
-        return true;
+        this.IsLoggedIn.next(true);
       },
 
-      onFailure: function(err) {
+      onFailure: (err): any => {
         alert(err.message || JSON.stringify(err));
-        return false;
+        this.IsLoggedIn.next(false);
       },
     });
-
-    return result;
   }
 
 }

@@ -67,7 +67,14 @@ this.gUser = googleUser;
   }
 
   ngOnInit() {
-    this.loginService.IsLoggedIn.subscribe(isloggedIn=>{this.IsLoggedIn = isloggedIn});
+    this.loginService.IsLoggedIn.subscribe(isloggedIn => {this.IsLoggedIn = isloggedIn; });
+    this.authService.IsLoggedIn.subscribe(isloggedIn => {
+      if (isloggedIn) {
+        this.loginService.ToLogin();
+        const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+        this.router.navigate([returnUrl]);
+      }
+    });
   }
 
   ngOnDestroy(){
@@ -90,12 +97,6 @@ this.gUser = googleUser;
   onLoginFormSubmit(ngForm: NgForm) {
     const formValue = ngForm.value;
 
-    const result = this.authService.signin(formValue.username, formValue.password);
-
-    if (result === true) {
-      this.IsLoggedIn = true;
-    } else {
-      this.IsLoggedIn = false;
-    }
+    this.authService.signin(formValue.username, formValue.password);
   }
 }
