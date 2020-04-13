@@ -17,7 +17,7 @@ export class AuthService {
 
   }
 
-  signup(username: string, email: string, password: string) {
+  signup(username: string, email: string, password: string): any {
     const attributeList = [];
 
     attributeList.push(new CognitoUserAttribute({Name: 'email', Value: email}));
@@ -27,10 +27,9 @@ export class AuthService {
          alert(err.message || JSON.stringify(err));
          return;
        }
-
        const cognitoUser = result.user;
        console.log('user name is ' + cognitoUser.getUsername());
-
+       return cognitoUser.getUsername();
      });
   }
 

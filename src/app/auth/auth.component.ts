@@ -9,6 +9,8 @@ import { NgForm } from '@angular/forms';
 })
 export class AuthComponent implements OnInit {
 
+  hasSignedup = false;
+
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
@@ -16,9 +18,11 @@ export class AuthComponent implements OnInit {
 
 
   onFormSubmit(ngForm: NgForm) {
-    let formValue = ngForm.value;
+    const formValue = ngForm.value;
 
     this.authService.signup(formValue.username, formValue.email, formValue.password);
+
+    this.hasSignedup = true;
     // this.authService.signup(formValue.email, formValue.password).subscribe( respData => {
     //   console.log(respData);
     // },

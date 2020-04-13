@@ -1,0 +1,92 @@
+[debug] [2020-04-13T04:05:29.488Z] ----------------------------------------------------------------------
+[debug] [2020-04-13T04:05:29.491Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\lucas\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2020-04-13T04:05:29.491Z] CLI Version:   7.13.1
+[debug] [2020-04-13T04:05:29.491Z] Platform:      win32
+[debug] [2020-04-13T04:05:29.491Z] Node Version:  v12.13.1
+[debug] [2020-04-13T04:05:29.492Z] Time:          Mon Apr 13 2020 14:05:29 GMT+1000 (Australian Eastern Standard Time)
+[debug] [2020-04-13T04:05:29.492Z] ----------------------------------------------------------------------
+[debug] [2020-04-13T04:05:29.493Z] 
+[debug] [2020-04-13T04:05:29.538Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-04-13T04:05:29.538Z] > authorizing via signed-in user
+[debug] [2020-04-13T04:05:29.538Z] [iam] checking project gplink-api for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-04-13T04:05:29.541Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-04-13T04:05:29.541Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-04-13T04:05:30.166Z] <<< HTTP RESPONSE 400
+[debug] [2020-04-13T04:05:30.168Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/gplink-api:testIamPermissions  
+
+[debug] [2020-04-13T04:05:30.902Z] <<< HTTP RESPONSE 401
+[debug] [2020-04-13T04:05:30.902Z] <<< HTTP RESPONSE BODY
+[debug] [2020-04-13T04:05:30.903Z] [iam] error while checking permissions, command may fail: FirebaseError: HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+[debug] [2020-04-13T04:05:30.904Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-04-13T04:05:30.904Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-04-13T04:05:31.379Z] <<< HTTP RESPONSE 400
+[debug] [2020-04-13T04:05:31.380Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/gplink-api  
+ 
+[debug] [2020-04-13T04:05:32.260Z] <<< HTTP RESPONSE 401
+[debug] [2020-04-13T04:05:32.261Z] <<< HTTP RESPONSE BODY
+[debug] [2020-04-13T04:05:32.261Z] HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+[debug] [2020-04-13T04:05:32.818Z] FirebaseError: HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+    at module.exports (C:\Users\lucas\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:38:12)
+    at Request._callback (C:\Users\lucas\AppData\Roaming\npm\node_modules\firebase-tools\lib\api.js:39:35)
+    at Request.self.callback (C:\Users\lucas\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:185:22)
+    at Request.emit (events.js:210:5)
+    at Request.EventEmitter.emit (domain.js:475:20)
+    at Request.<anonymous> (C:\Users\lucas\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1154:10)
+    at Request.emit (events.js:210:5)
+    at Request.EventEmitter.emit (domain.js:475:20)
+    at IncomingMessage.<anonymous> (C:\Users\lucas\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1076:12)
+    at Object.onceWrapper (events.js:299:28)
+    at IncomingMessage.emit (events.js:215:7)
+    at IncomingMessage.EventEmitter.emit (domain.js:475:20)
+    at endReadableNT (_stream_readable.js:1184:12)
+    at processTicksAndRejections (internal/process/task_queues.js:80:21)
+[error] 
+[error] Error: Failed to get Firebase project gplink-api. Please make sure the project exists and your account has permission to access it.
+[debug] [2020-04-13T04:07:43.671Z] ----------------------------------------------------------------------
+[debug] [2020-04-13T04:07:43.674Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\lucas\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2020-04-13T04:07:43.674Z] CLI Version:   7.13.1
+[debug] [2020-04-13T04:07:43.674Z] Platform:      win32
+[debug] [2020-04-13T04:07:43.674Z] Node Version:  v12.13.1
+[debug] [2020-04-13T04:07:43.675Z] Time:          Mon Apr 13 2020 14:07:43 GMT+1000 (Australian Eastern Standard Time)
+[debug] [2020-04-13T04:07:43.675Z] ----------------------------------------------------------------------
+[debug] [2020-04-13T04:07:43.676Z] 
+[debug] [2020-04-13T04:07:43.686Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-04-13T04:07:43.687Z] > authorizing via signed-in user
+[debug] [2020-04-13T04:07:43.687Z] [iam] checking project gplink-api for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-04-13T04:07:43.689Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-04-13T04:07:43.689Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-04-13T04:07:44.313Z] <<< HTTP RESPONSE 400
+[debug] [2020-04-13T04:07:44.315Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/gplink-api:testIamPermissions  
+
+[debug] [2020-04-13T04:07:45.892Z] <<< HTTP RESPONSE 401
+[debug] [2020-04-13T04:07:45.892Z] <<< HTTP RESPONSE BODY
+[debug] [2020-04-13T04:07:45.893Z] [iam] error while checking permissions, command may fail: FirebaseError: HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+[debug] [2020-04-13T04:07:45.894Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-04-13T04:07:45.894Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-04-13T04:07:46.354Z] <<< HTTP RESPONSE 400
+[debug] [2020-04-13T04:07:46.354Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/gplink-api  
+ 
+[debug] [2020-04-13T04:07:46.895Z] <<< HTTP RESPONSE 401
+[debug] [2020-04-13T04:07:46.895Z] <<< HTTP RESPONSE BODY
+[debug] [2020-04-13T04:07:46.895Z] HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+[debug] [2020-04-13T04:07:47.475Z] FirebaseError: HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+    at module.exports (C:\Users\lucas\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:38:12)
+    at Request._callback (C:\Users\lucas\AppData\Roaming\npm\node_modules\firebase-tools\lib\api.js:39:35)
+    at Request.self.callback (C:\Users\lucas\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:185:22)
+    at Request.emit (events.js:210:5)
+    at Request.EventEmitter.emit (domain.js:475:20)
+    at Request.<anonymous> (C:\Users\lucas\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1154:10)
+    at Request.emit (events.js:210:5)
+    at Request.EventEmitter.emit (domain.js:475:20)
+    at IncomingMessage.<anonymous> (C:\Users\lucas\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1076:12)
+    at Object.onceWrapper (events.js:299:28)
+    at IncomingMessage.emit (events.js:215:7)
+    at IncomingMessage.EventEmitter.emit (domain.js:475:20)
+    at endReadableNT (_stream_readable.js:1184:12)
+    at processTicksAndRejections (internal/process/task_queues.js:80:21)
+[error] 
+[error] Error: Failed to get Firebase project gplink-api. Please make sure the project exists and your account has permission to access it.
