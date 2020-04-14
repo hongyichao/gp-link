@@ -81,4 +81,23 @@ export class AuthService {
     });
   }
 
+  isAuthenticated() {
+    const user = UserPool.getCurrentUser();
+    if (!user) {
+      this.IsLoggedIn.next(false);
+    } else {
+      user.getSession((err, session) => {
+        if ( err) {
+          this.IsLoggedIn.next(false);
+        } else {
+          if (session.isValid()) {
+            this.IsLoggedIn.next(true);
+          } else {
+            this.IsLoggedIn.next(false);
+          }
+        }
+      });
+    }
+  }
+
 }
