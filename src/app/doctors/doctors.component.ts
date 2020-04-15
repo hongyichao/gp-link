@@ -7,14 +7,14 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertModalComponent } from '../shared/alert-modal/alert-modal.component';
 import {Doctor} from '../shared/doctor.model';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-doctors',
   templateUrl: './doctors.component.html',
   styleUrls: ['./doctors.component.css']
 })
-export class DoctorsComponent implements OnInit, OnDestroy
-{
+export class DoctorsComponent implements OnInit, OnDestroy {
   doctorFound: string;
   doctors: Array<Doctor>;
   selectedDoctorName: string;
@@ -30,7 +30,8 @@ export class DoctorsComponent implements OnInit, OnDestroy
     private httpClient: HttpClient,
     private modalService: NgbModal,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private authService: AuthService) {
 
     this.selectedDoctorName = '';
   }
@@ -64,8 +65,7 @@ export class DoctorsComponent implements OnInit, OnDestroy
     .pipe(map(responseData => {
       const postArray = [];
       for (const key in responseData) {
-        if(responseData.hasOwnProperty(key)) {
-
+        if (responseData.hasOwnProperty(key)) {
           const respData = responseData[key];
           const aDoctor: Doctor = {
             Id: null,
@@ -89,7 +89,7 @@ export class DoctorsComponent implements OnInit, OnDestroy
     .subscribe(doctors => {
       console.log(doctors);
 
-      for(var i=0; i< doctors.length; i++) {
+      for (let i = 0; i < doctors.length; i++) {
         this.appDataService.AddDoctor(doctors[i]);
       }
 
@@ -140,5 +140,25 @@ export class DoctorsComponent implements OnInit, OnDestroy
 
   onHandleAlerClose() {
     this.isAlertVisible = false;
+  }
+
+  getAwsDoctors() {
+    this.authService.getAuthenticatedUser().getSession((err, session) => {
+      if (err) {
+        return;
+      } else {
+        console.log('token: ' + session.getIdToken().getJwtToken());
+        this.httpClient.get(
+          'https://b3364191vg.execute-api.us-east-1.amazonaws.com/dev/users/doctors',
+          {
+            headers: new HttpHeaders({Authorization: session.getIdToken().getJwtToken()})
+          }
+        ).subscribe(response => {
+          console.log(response);
+        });
+
+      }
+
+    });
   }
 }

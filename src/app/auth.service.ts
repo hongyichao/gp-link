@@ -81,8 +81,12 @@ export class AuthService {
     });
   }
 
+  getAuthenticatedUser() {
+    return UserPool.getCurrentUser();
+  }
+
   isAuthenticated() {
-    const user = UserPool.getCurrentUser();
+    const user = this.getAuthenticatedUser();
     if (!user) {
       this.IsLoggedIn.next(false);
     } else {
