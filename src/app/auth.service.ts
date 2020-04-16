@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {AuthResponseData} from './interfaces/authresponsedata';
 import {environment} from '../environments/environment';
 import {CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails, CognitoUserSession } from 'amazon-cognito-identity-js';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 const PoolData = {
   UserPoolId: 'us-east-1_etXj9FOMw',
@@ -15,8 +15,10 @@ const UserPool = new CognitoUserPool(PoolData);
 export class AuthService {
 
   IsLoggedIn = new  BehaviorSubject<boolean>(false);
-  constructor(private httpclient: HttpClient) {
+  IdToken;
 
+  constructor(private httpclient: HttpClient) {
+    this.isAuthenticated();
   }
 
   signup(username: string, email: string, password: string): any {
@@ -69,7 +71,7 @@ export class AuthService {
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: (userSession: CognitoUserSession): any => {
         console.log(userSession);
-        const accessToken = userSession.getAccessToken().getJwtToken();
+        this.IdToken = userSession.getAccessToken().getJwtToken();
 
         this.IsLoggedIn.next(true);
       },
@@ -96,6 +98,7 @@ export class AuthService {
         } else {
           if (session.isValid()) {
             this.IsLoggedIn.next(true);
+            this.IdToken = session.getIdToken().getJwtToken();
           } else {
             this.IsLoggedIn.next(false);
           }

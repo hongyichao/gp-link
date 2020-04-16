@@ -147,12 +147,8 @@ export class DoctorsComponent implements OnInit, OnDestroy {
       if (err) {
         return;
       } else {
-        console.log('token: ' + session.getIdToken().getJwtToken());
         this.httpClient.get(
-          'https://b3364191vg.execute-api.us-east-1.amazonaws.com/dev/users/doctors',
-          {
-            headers: new HttpHeaders({Authorization: session.getIdToken().getJwtToken()})
-          }
+          'https://b3364191vg.execute-api.us-east-1.amazonaws.com/dev/users/doctors'
         ).subscribe(response => {
           console.log(response);
         });

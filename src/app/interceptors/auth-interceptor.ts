@@ -1,21 +1,22 @@
 import { HttpInterceptor, HttpRequest, HttpEventType, HttpHandler, HttpResponse } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
+import { AuthService } from '../auth.service';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
+
+    constructor(private authService: AuthService) { }
 
     intercept(request: HttpRequest<any>, next) {
       console.log('request is sent');
-      //const modifiedRequest = request.clone({headers: request.headers.append('Auth', 'xyz')});
+      console.log(this.authService.IdToken);
+      const modifiedRequest = request.clone({headers: request.headers.append('Authorization', this.authService.IdToken)});
 
-      //modifiedRequest.headers.append('Access-Control-Allow-Origin', '*');
-      return next.handle(request).pipe(tap(event => {
-
-        console.log('XD:' + event);
-
+      return next.handle(modifiedRequest).pipe(tap(event => {
         if (event instanceof HttpResponse) {
-           console.log('Again!! ' + event);
+           console.log(event);
          }
-
       }));
    }
 }
