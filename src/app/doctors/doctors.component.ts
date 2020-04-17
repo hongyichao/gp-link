@@ -157,4 +157,15 @@ export class DoctorsComponent implements OnInit, OnDestroy {
 
     });
   }
+
+  addAwsDoctors() {
+
+    const newDoctor = {FirstName: 'Terry', LastName: 'C', Email: 'tc@gmail.com', Phone: '12345678'};
+
+    this.httpClient.post(
+      'https://b3364191vg.execute-api.us-east-1.amazonaws.com/dev/users/doctors', newDoctor
+    ).subscribe(response => {
+      console.log(response);
+    });
+  }
 }
