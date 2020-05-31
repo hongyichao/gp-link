@@ -1,4 +1,4 @@
-import {Injectable, RootRenderer} from '@angular/core'
+import {Injectable} from '@angular/core'
 
 @Injectable({
 providedIn:'root',
@@ -28,7 +28,7 @@ export class Patient
     public Id: string;
   public FirstName: string;
   public LastName: string;
-  public Email: string;  
+  public Email: string;
   public Phone: string ;
   public Gender: string;
 }

@@ -12,7 +12,7 @@ import {Doctor} from '../shared/doctor.model';
 })
 export class DoctorComponent implements OnInit, AfterViewInit
 {
-  @ViewChild('f',  {static: false}) drForm: NgForm;
+  @ViewChild('f') drForm: NgForm;
   doctor: any;
   doctorId:string;
   editMode = false;
