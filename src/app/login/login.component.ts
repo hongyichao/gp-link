@@ -12,7 +12,11 @@ declare const gapi: any;
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
+export class LoginComponent implements OnInit, OnDestroy//, AfterViewInit
+{
+  username: string;
+  password: string;
+
   IsLoggedIn: boolean;
 
   LoginStatusSub = new Subscription;
@@ -22,7 +26,9 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 
-  public auth2: any;
+  //public auth2: any;
+
+  /*
   public googleInit() {
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({
@@ -65,6 +71,7 @@ this.gUser = googleUser;
         console.log(gapi.auth2.getAuthInstance().isSignedIn);
     });
   }
+  */
 
   ngOnInit() {
     this.loginService.IsLoggedIn.subscribe(isloggedIn => {this.IsLoggedIn = isloggedIn; });
@@ -81,17 +88,14 @@ this.gUser = googleUser;
     this.LoginStatusSub.unsubscribe();
   }
 
-  ToLogin():void
-  {
-    this.loginService.ToLogin();
+  ToLogin() {
+    this.authService.login();
     const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
     this.router.navigate([returnUrl]);
   }
 
-  ToLogout():void
-  {
-    this.loginService.ToLogOut();
-
+  ToLogout() {
+    this.authService.logout();
   }
 
   onLoginFormSubmit(ngForm: NgForm) {

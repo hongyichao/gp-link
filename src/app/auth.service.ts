@@ -54,6 +54,14 @@ export class AuthService {
 
   }
 
+  login() {
+    this.IsLoggedIn.next(true);
+  }
+
+  logout() {
+    this.IsLoggedIn.next(false);
+  }
+
   signin(username: string, password: string) {
     const authenticationData = {
       Username: username,
