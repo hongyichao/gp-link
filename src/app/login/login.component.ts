@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, NgZone, AfterViewInit, ViewChild  } from '@angular/core';
-import { LoginService } from '../login.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
@@ -22,8 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy//, AfterViewInit
 
   LoginStatusSub = new Subscription;
 
-  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute, private authService: AuthService) {
-    this.IsLoggedIn = this.loginService.IsLoggedIn.value;
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) {
   }
 
 
@@ -75,10 +73,8 @@ this.gUser = googleUser;
   */
 
   ngOnInit() {
-    this.loginService.IsLoggedIn.subscribe(isloggedIn => {this.IsLoggedIn = isloggedIn; });
     this.authService.IsLoggedIn.subscribe(isloggedIn => {
       if (isloggedIn) {
-        this.loginService.ToLogin();
         const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
         this.router.navigate([returnUrl]);
       }
@@ -91,9 +87,17 @@ this.gUser = googleUser;
 
   onUserLogin() {
     const frmValue = this.loginForm.form.value;
-    this.authService.login(frmValue.username, frmValue.password);
-    const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-    this.router.navigate([returnUrl]);
+    const loggedInUser = this.authService.login(frmValue.username, frmValue.password);
+
+    if (loggedInUser) {
+      if (loggedInUser.Type === 'doctor' || loggedInUser.Type === 'admin') {
+        this.router.navigate(['/doctors']);
+      }
+
+      if (loggedInUser.Type === 'patient') {
+        this.router.navigate(['/patients']);
+      }
+    }
   }
 
   ToLogout() {

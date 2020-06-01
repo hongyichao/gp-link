@@ -63,14 +63,16 @@ export class AuthService {
 
   }
 
-  login(username: string, password: string) {
+  login(username: string, password: string): AppUser {
     const theUser = this.appUsers.find( u => u.Username === username && u.Password === password);
 
     if (theUser) {
       this.loggedInUser = theUser;
       this.IsLoggedIn.next(true);
+      return theUser;
     } else {
       this.IsLoggedIn.next(false);
+      return null;
     }
   }
 

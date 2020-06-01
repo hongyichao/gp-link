@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, Router, Route,  ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute} from '@angular/router';
-import { LoginService } from '../login.service';
 import { Observable, Subject } from 'rxjs';
 import { AuthService } from '../auth.service';
 
@@ -11,8 +10,7 @@ providedIn: 'root'
 export class DoctorAuthGuard implements CanActivate {
     allowActivate: boolean;
 
-    constructor(private loginService: LoginService,
-      private router: Router,
+    constructor(private router: Router,
       private route: ActivatedRoute,
       private authService: AuthService) {}
 

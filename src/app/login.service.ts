@@ -4,7 +4,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class LoginService
+export class LoginService2
 {
     IsLoggedIn = new  BehaviorSubject<boolean>(false);
     LogdedInRedirectPage = '';

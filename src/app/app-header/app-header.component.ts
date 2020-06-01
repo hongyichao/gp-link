@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../login.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -19,12 +18,5 @@ export class AppHeaderComponent implements OnInit {
         this.userRole = this.authService.loggedInUser.Type;
       }
     });
-
   }
-
-  // IsUserLoggedIn()
-  // {
-  //   return !this.loginService.IsLoggedIn.value;
-  // }
-
 }

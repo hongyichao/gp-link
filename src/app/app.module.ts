@@ -7,7 +7,6 @@ import {AppDataService} from './app-data.service';
 import {PatientDataService} from './patient-data.service';
 import {LoginComponent } from './login/login.component';
 import {AuthGuard} from './auth-guard.service';
-import {LoginService} from './login.service';
 import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AuthInterceptorService } from './interceptors/auth-interceptor';
@@ -36,7 +35,7 @@ import { DoctorAuthGuard } from './shared-service/doctor-auth-guard.service';
     SharedModule
   ],
   providers: [
-    AppDataService, PatientDataService, AuthGuard, LoginService,
+    AppDataService, PatientDataService, AuthGuard,
     PatientAuthGuard, DoctorAuthGuard,
     {
       provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true
