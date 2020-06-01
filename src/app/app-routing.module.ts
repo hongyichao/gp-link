@@ -8,8 +8,8 @@ import { GpRatingComponent } from './gp-rating/gp-rating.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/doctors', pathMatch: 'full'},
-  { path: 'doctors', loadChildren: () => import('./doctors/doctor.module').then(m => m.DoctorModule) },
-  { path: 'patients', loadChildren: () => import('./patient.module').then(m => m.PatientModule) },
+  { path: 'doctors', loadChildren: () => import('./doctors/doctor.module').then(m => m.DoctorModule)},
+  { path: 'patients', loadChildren: () => import('./patient.module').then(m => m.PatientModule)},
   { path: 'gprating', component: GpRatingComponent, canActivate: [AuthGuard] },
   {
     path: 'auth', component: AuthComponent

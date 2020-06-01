@@ -16,6 +16,8 @@ import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared.module';
 import { RatingComponent } from './shared/rating/rating.component';
 import { GpRatingComponent } from './gp-rating/gp-rating.component';
+import { PatientAuthGuard } from './shared-service/patient-auth-guard.service';
+import { DoctorAuthGuard } from './shared-service/doctor-auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { GpRatingComponent } from './gp-rating/gp-rating.component';
   ],
   providers: [
     AppDataService, PatientDataService, AuthGuard, LoginService,
+    PatientAuthGuard, DoctorAuthGuard,
     {
       provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true
     }

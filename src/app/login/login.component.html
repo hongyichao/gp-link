@@ -6,7 +6,7 @@
         </span>-->
     </div>
     <div class="row">
-        <form>
+        <form (ngSubmit)="onUserLogin()" #loginForm="ngForm">
             <div class="form-group">
                 <span *ngIf="!uname.valid && uname.touched" class="invalid-field">*</span>
                 <label for="username">Username</label>
@@ -17,7 +17,8 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" required #pword="ngModel">
             </div>
-            <button class="btn btn-primary" (click)="ToLogin()">Login</button>
+            <button type="submit" class="btn btn-primary">Login</button> /
+            <button type="button" class="btn btn-outline-primary" (click)="redirectToSignUp()">Sign up</button>
         </form>
 
 

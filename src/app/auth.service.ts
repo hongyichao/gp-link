@@ -4,6 +4,7 @@ import {AuthResponseData} from './interfaces/authresponsedata';
 import {environment} from '../environments/environment';
 import {CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails, CognitoUserSession } from 'amazon-cognito-identity-js';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { AppUser } from './shared-models/app.user';
 
 const PoolData = {
   UserPoolId: 'us-east-1_etXj9FOMw',
@@ -13,12 +14,20 @@ const UserPool = new CognitoUserPool(PoolData);
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
+  appUsers: AppUser[];
+  loggedInUser: AppUser;
 
   IsLoggedIn = new  BehaviorSubject<boolean>(false);
   IdToken;
 
   constructor(private httpclient: HttpClient) {
     this.isAuthenticated();
+
+    this.appUsers = [
+      {Id: 1, FirstName: 'Admin', LastName: 'Admin', Username: 'admin', Password: 'admin', Type: 'admin'},
+      {Id: 2, FirstName: 'doctor', LastName: 'doctor', Username: 'doctor', Password: 'doctor', Type: 'doctor'},
+      {Id: 3, FirstName: 'patient', LastName: 'patient', Username: 'patient', Password: 'patient', Type: 'patient'}
+    ];
   }
 
   signup(username: string, email: string, password: string): any {
@@ -54,8 +63,15 @@ export class AuthService {
 
   }
 
-  login() {
-    this.IsLoggedIn.next(true);
+  login(username: string, password: string) {
+    const theUser = this.appUsers.find( u => u.Username === username && u.Password === password);
+
+    if (theUser) {
+      this.loggedInUser = theUser;
+      this.IsLoggedIn.next(true);
+    } else {
+      this.IsLoggedIn.next(false);
+    }
   }
 
   logout() {

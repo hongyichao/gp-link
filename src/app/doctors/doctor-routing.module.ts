@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import { DoctorsComponent } from './doctors.component';
 import { DoctorComponent } from '../doctor/doctor.component';
 import { DoctorResolverService } from './doctor-resolver.service';
+import { DoctorAuthGuard } from '../shared-service/doctor-auth-guard.service';
 
 const doctorRoutes: Routes = [
   {
@@ -16,7 +17,8 @@ const doctorRoutes: Routes = [
         path: ':id',
         component: DoctorComponent
       }
-    ]
+    ],
+    canActivate: [DoctorAuthGuard]
   }
 
 ];

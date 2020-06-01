@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone, AfterViewInit  } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, AfterViewInit, ViewChild  } from '@angular/core';
 import { LoginService } from '../login.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,6 +14,7 @@ declare const gapi: any;
 })
 export class LoginComponent implements OnInit, OnDestroy//, AfterViewInit
 {
+  @ViewChild('loginForm') loginForm: NgForm;
   username: string;
   password: string;
 
@@ -88,8 +89,9 @@ this.gUser = googleUser;
     this.LoginStatusSub.unsubscribe();
   }
 
-  ToLogin() {
-    this.authService.login();
+  onUserLogin() {
+    const frmValue = this.loginForm.form.value;
+    this.authService.login(frmValue.username, frmValue.password);
     const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
     this.router.navigate([returnUrl]);
   }
@@ -102,5 +104,9 @@ this.gUser = googleUser;
     const formValue = ngForm.value;
 
     this.authService.signin(formValue.username, formValue.password);
+  }
+
+  redirectToSignUp() {
+    this.router.navigate(['/auth']);
   }
 }
