@@ -111,6 +111,6 @@ this.gUser = googleUser;
   }
 
   redirectToSignUp() {
-    this.router.navigate(['/auth']);
+    this.router.navigate(['/signup']);
   }
 }

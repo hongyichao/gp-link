@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import {AppDataService} from './app-data.service';
@@ -17,6 +17,7 @@ import { RatingComponent } from './shared/rating/rating.component';
 import { GpRatingComponent } from './gp-rating/gp-rating.component';
 import { PatientAuthGuard } from './shared-service/patient-auth-guard.service';
 import { DoctorAuthGuard } from './shared-service/doctor-auth-guard.service';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -25,14 +26,16 @@ import { DoctorAuthGuard } from './shared-service/doctor-auth-guard.service';
     LoginComponent,
     NotfoundComponent,
     RatingComponent,
-    GpRatingComponent
+    GpRatingComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ],
   providers: [
     AppDataService, PatientDataService, AuthGuard,

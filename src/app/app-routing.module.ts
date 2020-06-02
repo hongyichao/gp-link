@@ -5,15 +5,15 @@ import {AuthGuard} from './auth-guard.service';
 import { AuthComponent } from './auth/auth.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { GpRatingComponent } from './gp-rating/gp-rating.component';
+import { SignupComponent } from './signup/signup.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'doctors', loadChildren: () => import('./doctors/doctor.module').then(m => m.DoctorModule)},
   { path: 'patients', loadChildren: () => import('./patient.module').then(m => m.PatientModule)},
   { path: 'gprating', component: GpRatingComponent, canActivate: [AuthGuard] },
-  {
-    path: 'auth', component: AuthComponent
-  },
+  { path: 'auth', component: AuthComponent},
+  { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent },
   { path: '**', component: NotfoundComponent}
 ];
