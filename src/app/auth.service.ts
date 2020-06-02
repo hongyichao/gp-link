@@ -5,6 +5,8 @@ import {environment} from '../environments/environment';
 import {CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails, CognitoUserSession } from 'amazon-cognito-identity-js';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { AppUser } from './shared-models/app.user';
+import { AppDataService } from './app-data.service';
+import { UserRegistration } from './shared-models/app.user-registration';
 
 const PoolData = {
   UserPoolId: 'us-east-1_etXj9FOMw',
@@ -20,7 +22,7 @@ export class AuthService {
   IsLoggedIn = new  BehaviorSubject<boolean>(false);
   IdToken;
 
-  constructor(private httpclient: HttpClient) {
+  constructor(private httpclient: HttpClient, private dataService: AppDataService) {
     this.isAuthenticated();
 
     this.appUsers = [
@@ -30,20 +32,35 @@ export class AuthService {
     ];
   }
 
-  signup(username: string, email: string, password: string): any {
-    const attributeList = [];
+  // signup(username: string, email: string, password: string): any {
+  //   const attributeList = [];
 
-    attributeList.push(new CognitoUserAttribute({Name: 'email', Value: email}));
+  //   attributeList.push(new CognitoUserAttribute({Name: 'email', Value: email}));
 
-    UserPool.signUp(username, password, attributeList, null, (err, result) => {
-       if (err) {
-         alert(err.message || JSON.stringify(err));
-         return;
-       }
-       const cognitoUser = result.user;
-       console.log('user name is ' + cognitoUser.getUsername());
-       return cognitoUser.getUsername();
-     });
+  //   UserPool.signUp(username, password, attributeList, null, (err, result) => {
+  //      if (err) {
+  //        alert(err.message || JSON.stringify(err));
+  //        return;
+  //      }
+  //      const cognitoUser = result.user;
+  //      console.log('user name is ' + cognitoUser.getUsername());
+  //      return cognitoUser.getUsername();
+  //    });
+  // }
+
+  signup(newUser: UserRegistration) {
+    const newAppUser: AppUser = {
+      Id: 111,
+      FirstName: newUser.FirstName,
+      LastName: newUser.LastName,
+      Username: newUser.Username,
+      Password: newUser.Password,
+      Type: newUser.Type
+    };
+
+    this.appUsers.push(newAppUser);
+
+    console.log(this.appUsers);
   }
 
   confirmUser(username: string, verificationCode: string) {

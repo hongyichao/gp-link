@@ -17,20 +17,6 @@ export class AuthComponent implements OnInit {
   }
 
 
-  onFormSubmit(ngForm: NgForm) {
-    const formValue = ngForm.value;
-
-    this.authService.signup(formValue.username, formValue.email, formValue.password);
-
-    this.hasSignedup = true;
-    // this.authService.signup(formValue.email, formValue.password).subscribe( respData => {
-    //   console.log(respData);
-    // },
-    // err => {
-    //   console.log(err);
-    // });
-  }
-
   onConfirmFormSubmit(ngForm: NgForm) {
     let formValue = ngForm.value;
 
