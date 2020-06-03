@@ -36,7 +36,12 @@ export class AppDataService {
       this.patients = storagePatients ? JSON.parse(storagePatients) : [];
 
       if (this.patients.length === 0) {
-        this.patients = [];
+        // this.patients = [];
+        this.patients = [
+          {Id: 1, FirstName: 'John', LastName: 'Xu', Email: 'johnx@gmail.com', Phone: '0404123456'},
+          {Id: 2, FirstName: 'Michael', LastName: 'Graves', Email: 'michaelg@gmail.com', Phone: '0404123457'},
+          {Id: 3, FirstName: 'Taylor', LastName: 'Swift', Email: 'taylors@outlook.com', Phone: '0404123458'}
+        ];
       }
     }
 

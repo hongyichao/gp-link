@@ -1,4 +1,4 @@
-export class AppUser {
+export interface AppUser {
   Id: number;
   FirstName: string;
   LastName: string;

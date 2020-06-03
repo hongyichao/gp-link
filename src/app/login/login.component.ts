@@ -89,15 +89,15 @@ this.gUser = googleUser;
     const frmValue = this.loginForm.form.value;
     const loggedInUser = this.authService.login(frmValue.username, frmValue.password);
 
-    if (loggedInUser) {
-      if (loggedInUser.Type === 'doctor' || loggedInUser.Type === 'admin') {
-        this.router.navigate(['/doctors']);
-      }
+    // if (loggedInUser) {
+    //   if (loggedInUser.Type === 'doctor' || loggedInUser.Type === 'admin') {
+    //     this.router.navigate(['/doctors']);
+    //   }
 
-      if (loggedInUser.Type === 'patient') {
-        this.router.navigate(['/patients']);
-      }
-    }
+    //   if (loggedInUser.Type === 'patient') {
+    //     this.router.navigate(['/patients']);
+    //   }
+    // }
   }
 
   ToLogout() {

@@ -4,7 +4,6 @@ import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import {AppDataService} from './app-data.service';
-import {PatientDataService} from './patient-data.service';
 import {LoginComponent } from './login/login.component';
 import {AuthGuard} from './auth-guard.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -38,7 +37,7 @@ import { SignupComponent } from './signup/signup.component';
     ReactiveFormsModule
   ],
   providers: [
-    AppDataService, PatientDataService, AuthGuard,
+    AppDataService, AuthGuard,
     PatientAuthGuard, DoctorAuthGuard,
     {
       provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true

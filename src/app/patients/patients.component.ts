@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PatientDataService } from '../patient-data.service';
 import { Patient } from '../shared-models/app.patient';
 import { AppDataService } from '../app-data.service';
 

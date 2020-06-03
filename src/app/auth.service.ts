@@ -9,6 +9,8 @@ import { AppDataService } from './app-data.service';
 import { UserRegistration } from './shared-models/app.user-registration';
 import { Doctor } from './shared-models/app.doctor';
 import { Patient } from './shared-models/app.patient';
+import { UserAuthSession } from './shared-models/user.auth-session';
+import { Router } from '@angular/router';
 
 const PoolData = {
   UserPoolId: 'us-east-1_etXj9FOMw',
@@ -24,9 +26,7 @@ export class AuthService {
   IsLoggedIn = new  BehaviorSubject<boolean>(false);
   IdToken;
 
-  constructor(private httpclient: HttpClient, private dataService: AppDataService) {
-    this.isAuthenticated();
-
+  constructor(private httpclient: HttpClient, private dataService: AppDataService, private router: Router) {
     const storageAppUsers = sessionStorage.getItem('gpAppUsers');
 
     this.appUsers = storageAppUsers ? JSON.parse(storageAppUsers) : [];
@@ -37,6 +37,12 @@ export class AuthService {
         {Id: 2, FirstName: 'doctor', LastName: 'doctor', Username: 'doctor', Password: 'doctor', Type: 'doctor'},
         {Id: 3, FirstName: 'patient', LastName: 'patient', Username: 'patient', Password: 'patient', Type: 'patient'}
       ];
+    }
+
+    const activeUser = this.isAuthenticated();
+
+    if (activeUser) {
+      this.login(activeUser.Username, activeUser.Password);
     }
   }
 
@@ -127,9 +133,27 @@ export class AuthService {
     if (theUser) {
       this.loggedInUser = theUser;
       this.IsLoggedIn.next(true);
+
+      const userAuthSession: UserAuthSession = {
+        Token: 'isLoggedIn',
+        ActiveUser: theUser
+      };
+
+      sessionStorage.setItem('userAuthSession', JSON.stringify(userAuthSession));
+
+      if (theUser.Type === 'doctor' || theUser.Type === 'admin') {
+        this.router.navigate(['/doctors']);
+      }
+
+      if (theUser.Type === 'patient') {
+        this.router.navigate(['/patients']);
+      }
+
       return theUser;
     } else {
       this.IsLoggedIn.next(false);
+
+      sessionStorage.removeItem('userAuthSession');
       return null;
     }
   }
@@ -171,24 +195,33 @@ export class AuthService {
     return UserPool.getCurrentUser();
   }
 
-  isAuthenticated() {
-    const user = this.getAuthenticatedUser();
-    if (!user) {
-      this.IsLoggedIn.next(false);
-    } else {
-      user.getSession((err, session) => {
-        if ( err) {
-          this.IsLoggedIn.next(false);
-        } else {
-          if (session.isValid()) {
-            this.IsLoggedIn.next(true);
-            this.IdToken = session.getIdToken().getJwtToken();
-          } else {
-            this.IsLoggedIn.next(false);
-          }
-        }
-      });
+  isAuthenticated(): AppUser {
+
+    const storageUserSession = sessionStorage.getItem('userAuthSession');
+
+    const userAuthSession: UserAuthSession = storageUserSession ? JSON.parse(storageUserSession) : null;
+
+    if (userAuthSession) {
+      return userAuthSession.ActiveUser;
     }
+
+    // const user = this.getAuthenticatedUser();
+    // if (!user) {
+    //   this.IsLoggedIn.next(false);
+    // } else {
+    //   user.getSession((err, session) => {
+    //     if ( err) {
+    //       this.IsLoggedIn.next(false);
+    //     } else {
+    //       if (session.isValid()) {
+    //         this.IsLoggedIn.next(true);
+    //         this.IdToken = session.getIdToken().getJwtToken();
+    //       } else {
+    //         this.IsLoggedIn.next(false);
+    //       }
+    //     }
+    //   });
+    // }
   }
 
 }
