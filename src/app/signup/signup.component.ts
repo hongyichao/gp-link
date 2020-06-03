@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
 
   signUpResult = true;
+  validRegistration = true;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -34,7 +35,7 @@ export class SignupComponent implements OnInit {
 
       const frmVal = this.signupForm.value;
 
-      const userRegistration : UserRegistration = {
+      const userRegistration: UserRegistration = {
         FirstName: frmVal.firstName,
         LastName: frmVal.lastName,
         Username: frmVal.username,
@@ -50,12 +51,17 @@ export class SignupComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     } else {
+      this.validRegistration = false;
       console.log(this.signupForm);
     }
   }
 
   isFieldInvalid(frmControlName: string) {
     return !this.signupForm.get(frmControlName).valid && this.signupForm.get(frmControlName).touched;
+  }
+
+  onCancelSignup() {
+    this.router.navigate(['/login']);
   }
 
 }

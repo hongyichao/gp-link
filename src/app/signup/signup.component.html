@@ -1,39 +1,39 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <form (ngSubmit)="onSignUpFormSubmitted()" [formGroup]="signupForm">
                 <div class="form-group">
-                    <label for="firstName">First Name</label>
+                    <label for="firstName">* First Name</label>
                     <input type="text" class="form-control" id="firstName" formControlName="firstName" required>
                     <span class="alert-danger" *ngIf="isFieldInvalid('firstName')">First Name is required</span>
                 </div>
                 <div class="form-group">
-                    <label for="lastName">Last Name</label>
+                    <label for="lastName">* Last Name</label>
                     <input type="text" class="form-control" id="lastName" formControlName="lastName" required>
                     <span class="alert-danger" *ngIf="isFieldInvalid('lastName')">Last Name is required</span>
                 </div>
                 <div class="form-group">
-                    <label for="username">Username</label>
+                    <label for="username">* Username</label>
                     <input type="text" class="form-control" id="username" formControlName="username" required>
                     <span class="alert-danger" *ngIf="isFieldInvalid('username')">Username is required</span>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">* Password</label>
                     <input type="text" class="form-control" id="password" formControlName="password" required>
                     <span class="alert-danger" *ngIf="isFieldInvalid('password')">Password is required</span>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">* Email</label>
                     <input type="text" class="form-control" id="email" formControlName="email" required>
                     <span class="alert-danger" *ngIf="isFieldInvalid('email')">Email is required</span>
                 </div>
                 <div class="form-group">
-                    <label for="phone">Phone</label>
+                    <label for="phone">* Phone</label>
                     <input type="text" class="form-control" id="phone" formControlName="phone">
                     <span class="alert-danger" *ngIf="isFieldInvalid('phone')">Phone is required</span>
                 </div>
                 <div class="form-group">
-                    <label for="type">Type</label>
+                    <label for="type">* Type</label>
                     <select class="form-control" id="type" formControlName="type">
                     <option value=""></option>
                     <option value="doctor">Doctor</option>
@@ -42,8 +42,18 @@
                     <span class="alert-danger" *ngIf="isFieldInvalid('type')">Type is required</span>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary form-control">Submit</button>
-                    <span class="alert-danger" *ngIf="signupForm.status === 'INVALID'">All required fields must be provided</span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary form-control">Submit</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-secondary form-control" (click)="onCancelSignup()">Cancel</button>
+                        </div>
+                    </div>
+
+
+
+                    <span class="alert-danger" *ngIf="!validRegistration">All required fields must be provided</span>
                     <span class="alert-danger" *ngIf="!signUpResult">The username has been taken</span>
                 </div>
             </form>
