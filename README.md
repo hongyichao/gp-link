@@ -2,6 +2,13 @@
 
 Demo Website http://gplink-angular.s3-website-us-east-1.amazonaws.com/
 
+*** use admin/admin to login as admin
+
+*** use doctor/doctor to login as doctor
+
+*** patient/patient to login as patient
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
 
 ## Development server
@@ -10,6 +17,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Code scaffolding
 Run `ng g c signup --module=app.module` to generate signup component under app.module.ts
+
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
