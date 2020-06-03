@@ -3,7 +3,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {AppDataService} from '../app-data.service';
 import {Subscription, fromEventPattern} from 'rxjs';
 import { NgForm } from '@angular/forms';
-import {Doctor} from '../shared/doctor.model';
+import {Doctor} from '../shared-models/app.doctor';
 
 @Component({
   selector: 'app-doctor',
@@ -14,7 +14,7 @@ export class DoctorComponent implements OnInit, AfterViewInit
 {
   @ViewChild('f') drForm: NgForm;
   doctor: any;
-  doctorId:string;
+  doctorId: number;
   editMode = false;
   private routeSub: Subscription;
 

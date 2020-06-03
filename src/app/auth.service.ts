@@ -7,6 +7,8 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { AppUser } from './shared-models/app.user';
 import { AppDataService } from './app-data.service';
 import { UserRegistration } from './shared-models/app.user-registration';
+import { Doctor } from './shared-models/app.doctor';
+import { Patient } from './shared-models/app.patient';
 
 const PoolData = {
   UserPoolId: 'us-east-1_etXj9FOMw',
@@ -25,11 +27,17 @@ export class AuthService {
   constructor(private httpclient: HttpClient, private dataService: AppDataService) {
     this.isAuthenticated();
 
-    this.appUsers = [
-      {Id: 1, FirstName: 'Admin', LastName: 'Admin', Username: 'admin', Password: 'admin', Type: 'admin'},
-      {Id: 2, FirstName: 'doctor', LastName: 'doctor', Username: 'doctor', Password: 'doctor', Type: 'doctor'},
-      {Id: 3, FirstName: 'patient', LastName: 'patient', Username: 'patient', Password: 'patient', Type: 'patient'}
-    ];
+    const storageAppUsers = sessionStorage.getItem('gpAppUsers');
+
+    this.appUsers = storageAppUsers ? JSON.parse(storageAppUsers) : [];
+
+    if (this.appUsers.length === 0) {
+      this.appUsers = [
+        {Id: 1, FirstName: 'Admin', LastName: 'Admin', Username: 'admin', Password: 'admin', Type: 'admin'},
+        {Id: 2, FirstName: 'doctor', LastName: 'doctor', Username: 'doctor', Password: 'doctor', Type: 'doctor'},
+        {Id: 3, FirstName: 'patient', LastName: 'patient', Username: 'patient', Password: 'patient', Type: 'patient'}
+      ];
+    }
   }
 
   // signup(username: string, email: string, password: string): any {
@@ -48,9 +56,14 @@ export class AuthService {
   //    });
   // }
 
-  signup(newUser: UserRegistration) {
+  signup(newUser: UserRegistration): boolean {
+    const existingUser = this.appUsers.find( u => u.Username === newUser.Username);
+    if (existingUser) {
+      return false;
+    }
+
     const newAppUser: AppUser = {
-      Id: 111,
+      Id: this.appUsers.length === 0 ? 1 : this.appUsers[this.appUsers.length - 1].Id + 1,
       FirstName: newUser.FirstName,
       LastName: newUser.LastName,
       Username: newUser.Username,
@@ -60,7 +73,35 @@ export class AuthService {
 
     this.appUsers.push(newAppUser);
 
+    sessionStorage.setItem('gpAppUsers', JSON.stringify(this.appUsers));
+
+    if (newUser.Type === 'doctor') {
+      const newDoctor: Doctor = {
+        Id: 111,
+        FirstName: newUser.FirstName,
+        LastName: newUser.LastName,
+        Email: newUser.Email,
+        Phone: newUser.Phone
+      };
+
+      this.dataService.AddDoctor(newDoctor);
+    } else {
+      const newPatient: Patient = {
+        Id: 111,
+        FirstName: newUser.FirstName,
+        LastName: newUser.LastName,
+        Email: newUser.Email,
+        Phone: newUser.Phone
+      };
+
+      this.dataService.AddPatient(newPatient);
+    }
+
+
+
     console.log(this.appUsers);
+
+    return true;
   }
 
   confirmUser(username: string, verificationCode: string) {

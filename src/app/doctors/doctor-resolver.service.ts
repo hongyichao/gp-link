@@ -4,7 +4,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot
 } from '@angular/router';
-import { Doctor } from '../shared/doctor.model';
+import { Doctor } from '../shared-models/app.doctor';
 import { AppDataService } from '../app-data.service';
 
 @Injectable ({

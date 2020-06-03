@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PatientDataService } from '../patient-data.service';
 import { ActivatedRoute, RouterLinkActive } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { AppDataService } from '../app-data.service';
 
 @Component({
   selector: 'app-patient',
@@ -18,7 +18,7 @@ export class PatientComponent implements OnInit
 
   }
 
-  constructor(private dataService: PatientDataService, private route: ActivatedRoute) { }
+  constructor(private dataService: AppDataService, private route: ActivatedRoute) { }
 
   patientForm = new FormGroup({
       firstName: new FormControl(null, Validators.required),
@@ -33,11 +33,13 @@ export class PatientComponent implements OnInit
     this.route.params.subscribe(params=>
     {
       let patientId = params['id'];
-      this.patient = this.dataService.GetPatientById(patientId);
-      this.patientForm.get('firstName').setValue(this.patient.FirstName);
-      this.patientForm.get('lastName').setValue(this.patient.LastName);
-      this.patientForm.get('email').setValue(this.patient.Email);
-      this.patientForm.get('gender').setValue(this.patient.Gender);
+      if (patientId) {
+        this.patient = this.dataService.GetPatientById(+patientId);
+        this.patientForm.get('firstName').setValue(this.patient.FirstName);
+        this.patientForm.get('lastName').setValue(this.patient.LastName);
+        this.patientForm.get('email').setValue(this.patient.Email);
+        this.patientForm.get('gender').setValue(this.patient.Gender);
+      }
     });
   }
 

@@ -5,7 +5,7 @@ import { Subject, Subscription, throwError } from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertModalComponent } from '../shared/alert-modal/alert-modal.component';
-import {Doctor} from '../shared/doctor.model';
+import {Doctor} from '../shared-models/app.doctor';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 

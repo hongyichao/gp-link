@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { UserRegistration } from '../shared-models/app.user-registration';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +11,9 @@ import { UserRegistration } from '../shared-models/app.user-registration';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  signUpResult = true;
+
+  constructor(private authService: AuthService, private router: Router) { }
 
   signupForm = new FormGroup({
     firstName: new FormControl(null, Validators.required),
@@ -41,7 +44,11 @@ export class SignupComponent implements OnInit {
         Type: frmVal.type
       };
 
-      this.authService.signup(userRegistration);
+      this.signUpResult = this.authService.signup(userRegistration);
+
+      if (this.signUpResult) {
+        this.router.navigate(['/login']);
+      }
     } else {
       console.log(this.signupForm);
     }

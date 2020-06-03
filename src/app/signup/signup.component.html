@@ -44,6 +44,7 @@
                 <div class="form-group">
                     <button class="btn btn-primary form-control">Submit</button>
                     <span class="alert-danger" *ngIf="signupForm.status === 'INVALID'">All required fields must be provided</span>
+                    <span class="alert-danger" *ngIf="!signUpResult">The username has been taken</span>
                 </div>
             </form>
         </div>
