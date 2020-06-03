@@ -14,7 +14,7 @@ export class DoctorFilterPipe implements PipeTransform {
 
     const resultArray = [];
     for (const item of value) {
-      if (item[propName].includes(filterStr)) {
+      if (item[propName].toUpperCase().includes(filterStr.toUpperCase())) {
         resultArray.push(item);
       }
     }
