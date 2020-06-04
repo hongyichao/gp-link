@@ -145,6 +145,10 @@ export class AuthService {
         this.router.navigate(['/doctors']);
       }
 
+      if (theUser.Type === 'doctor') {
+        this.router.navigate(['/doctorspace', theUser.Id]);
+      }
+
       if (theUser.Type === 'patient') {
         this.router.navigate(['/patients']);
       }

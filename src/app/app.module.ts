@@ -17,6 +17,7 @@ import { GpRatingComponent } from './gp-rating/gp-rating.component';
 import { PatientAuthGuard } from './shared-service/patient-auth-guard.service';
 import { DoctorAuthGuard } from './shared-service/doctor-auth-guard.service';
 import { SignupComponent } from './signup/signup.component';
+import { DoctorSpaceComponent } from './doctor-space/doctor-space.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SignupComponent } from './signup/signup.component';
     NotfoundComponent,
     RatingComponent,
     GpRatingComponent,
-    SignupComponent
+    SignupComponent,
+    DoctorSpaceComponent
   ],
   imports: [
     BrowserModule,
