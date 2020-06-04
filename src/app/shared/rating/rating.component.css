@@ -11,6 +11,10 @@
     color: #deb0b0;
 }
 
+.filled.good {
+    color: #ffee00;
+}
+
 .filled.bad {
     color: #ff1e1e;
 }

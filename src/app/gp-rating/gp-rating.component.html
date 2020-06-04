@@ -1,1 +1,27 @@
-<app-rating></app-rating>
+<!--<app-rating [currentRate]="5" [isEditable]="true"></app-rating>-->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="row">
+                <div class="col-12">
+                    <br/>
+                    <table class="table table-striped table-hover">
+                        <tbody>
+                            <tr *ngFor="let d of doctors">
+                                <td>
+                                    Dr. {{d.FirstName | uppercase}} {{d.LastName | uppercase}}
+                                    <br/>
+                                    <app-rating [currentRate]="d.Rating" [isEditable]="false"></app-rating>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

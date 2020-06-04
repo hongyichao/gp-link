@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -8,12 +8,12 @@ import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
   providers: [NgbRatingConfig]
 })
 export class RatingComponent implements OnInit {
-  currentRate = 2;
+  @Input() currentRate: number;
+  @Input() isEditable: boolean;
 
   constructor(config: NgbRatingConfig) {
     // customize default values of ratings used by this component tree
     config.max = 10;
-
   }
 
   ngOnInit() {

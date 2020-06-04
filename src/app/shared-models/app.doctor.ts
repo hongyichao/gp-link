@@ -5,4 +5,5 @@ export interface Doctor {
   Email: string;
   Phone: string ;
   Gender?: string;
+  Rating?: number;
 }

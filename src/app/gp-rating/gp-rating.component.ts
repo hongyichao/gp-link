@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppDataService } from '../app-data.service';
+import { Doctor } from '../shared-models/app.doctor';
 
 @Component({
   selector: 'app-gp-rating',
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gp-rating.component.css']
 })
 export class GpRatingComponent implements OnInit {
+  doctors: Doctor[];
 
-  constructor() { }
+  constructor(private appDataService: AppDataService) { }
 
   ngOnInit() {
+    this.doctors = this.appDataService.GetDoctors();
   }
 
 }
