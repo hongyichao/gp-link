@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <hr>
+            <div *ngFor="let a of appointments">
+                <div>
+                    {{a.DateTime.toDateString()}}
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

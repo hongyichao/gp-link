@@ -7,16 +7,20 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { GpRatingComponent } from './gp-rating/gp-rating.component';
 import { SignupComponent } from './signup/signup.component';
 import { DoctorSpaceComponent } from './doctor-space/doctor-space.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
+import { PatientSpaceComponent } from './patient-space/patient-space.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'doctors', loadChildren: () => import('./doctors/doctor.module').then(m => m.DoctorModule)},
   { path: 'patients', loadChildren: () => import('./patient.module').then(m => m.PatientModule)},
   { path: 'gprating', component: GpRatingComponent, canActivate: [AuthGuard] },
-  { path: 'doctorspace/:id', component: DoctorSpaceComponent, canActivate: [AuthGuard] },
+  { path: 'doctorspace', component: DoctorSpaceComponent, canActivate: [AuthGuard] },
+  { path: 'patientspace', component: PatientSpaceComponent, canActivate: [AuthGuard] },
   { path: 'auth', component: AuthComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent },
+  { path: 'appointments', component: AppointmentsComponent },
   { path: '**', component: NotfoundComponent}
 ];
 

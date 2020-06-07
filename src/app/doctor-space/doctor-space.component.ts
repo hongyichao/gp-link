@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Doctor } from '../shared-models/app.doctor';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-doctor-space',
@@ -15,7 +16,7 @@ export class DoctorSpaceComponent implements OnInit {
   doctorId: number;
   private routeSub: Subscription;
 
-  constructor(private appDataService: AppDataService, private route: ActivatedRoute) { }
+  constructor(private appDataService: AppDataService, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(
@@ -24,7 +25,11 @@ export class DoctorSpaceComponent implements OnInit {
       if (this.doctorId) {
         this.doctor = this.appDataService.GetDoctorById(this.doctorId);
       } else {
-        this.doctor = {};
+        const id = this.authService.loggedInUser.Id
+        this.doctor = this.appDataService.GetDoctorById(id);
+        if (!this.doctor) {
+          this.doctor = {};
+        }
       }
     });
   }

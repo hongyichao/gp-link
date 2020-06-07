@@ -5,14 +5,23 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown" *ngIf="isLoggedIn">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" *ngIf="userRole === 'doctor' || userRole === 'admin'">
+            <li class="nav-item" *ngIf="userRole === 'doctor'">
+                <a class="nav-link" routerLink="/doctorspace" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Profile <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" *ngIf="userRole === 'patient'">
+                <a class="nav-link" routerLink="/patientspace" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Profile <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" *ngIf="userRole === 'admin'">
                 <a class="nav-link" routerLink="/doctors" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Doctors <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" routerLink="/gprating" routerLinkActive="active">GP Rating</a>
             </li>
-            <li class="nav-item" *ngIf="userRole === 'patient' || userRole === 'admin'">
+            <li class="nav-item" *ngIf="userRole === 'admin'">
                 <a class="nav-link" routerLink="/patients" routerLinkActive="active">Patients</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/appointments" routerLinkActive="active">Appointments</a>
             </li>
         </ul>
     </div>

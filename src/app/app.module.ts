@@ -18,6 +18,9 @@ import { PatientAuthGuard } from './shared-service/patient-auth-guard.service';
 import { DoctorAuthGuard } from './shared-service/doctor-auth-guard.service';
 import { SignupComponent } from './signup/signup.component';
 import { DoctorSpaceComponent } from './doctor-space/doctor-space.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
+import { AppointmentComponent } from './appointment/appointment.component';
+import { PatientSpaceComponent } from './patient-space/patient-space.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { DoctorSpaceComponent } from './doctor-space/doctor-space.component';
     RatingComponent,
     GpRatingComponent,
     SignupComponent,
-    DoctorSpaceComponent
+    DoctorSpaceComponent,
+    AppointmentsComponent,
+    AppointmentComponent,
+    PatientSpaceComponent
   ],
   imports: [
     BrowserModule,

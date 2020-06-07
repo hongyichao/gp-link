@@ -13,7 +13,7 @@ import {Doctor} from '../shared-models/app.doctor';
 export class DoctorComponent implements OnInit, AfterViewInit
 {
   @ViewChild('f') drForm: NgForm;
-  doctor: any;
+  doctor?: Doctor;
   doctorId: number;
   editMode = false;
   private routeSub: Subscription;
@@ -28,10 +28,10 @@ export class DoctorComponent implements OnInit, AfterViewInit
       (params: Params) => {
       this.doctorId = params['id'];
       if (this.doctorId) {
-        this.doctor = this.appDataService.GetDoctorById(this.doctorId);
+        this.doctor = this.appDataService.GetDoctorById(+this.doctorId);
         this.editMode = true;
       } else {
-        this.doctor = {};
+        this.doctor = null;
       }
     });
 
@@ -59,7 +59,7 @@ export class DoctorComponent implements OnInit, AfterViewInit
     };
 
     if (this.editMode) {
-      aDoctor.Id = this.doctorId;
+      aDoctor.Id = this.doctor.Id;
       this.appDataService.updateDoctor(aDoctor);
     } else {
       this.doctorId = this.appDataService.AddDoctor(aDoctor);
