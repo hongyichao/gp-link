@@ -78,6 +78,11 @@ export class AuthService {
   //    });
   // }
 
+  getUserById(id: number): AppUser {
+    const theUser = this.appUsers.find(u => u.Id === id);
+    return theUser;
+  }
+
   signup(newUser: UserRegistration): boolean {
     const existingUser = this.appUsers.find( u => u.Username === newUser.Username);
     if (existingUser) {

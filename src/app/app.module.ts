@@ -21,6 +21,8 @@ import { DoctorSpaceComponent } from './doctor-space/doctor-space.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { PatientSpaceComponent } from './patient-space/patient-space.component';
+import { UsersComponent } from './users/users.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { PatientSpaceComponent } from './patient-space/patient-space.component';
     DoctorSpaceComponent,
     AppointmentsComponent,
     AppointmentComponent,
-    PatientSpaceComponent
+    PatientSpaceComponent,
+    UsersComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

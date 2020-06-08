@@ -9,6 +9,8 @@ import { SignupComponent } from './signup/signup.component';
 import { DoctorSpaceComponent } from './doctor-space/doctor-space.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { PatientSpaceComponent } from './patient-space/patient-space.component';
+import { UsersComponent } from './users/users.component';
+import { UserComponent } from './user/user.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -17,6 +19,20 @@ const appRoutes: Routes = [
   { path: 'gprating', component: GpRatingComponent, canActivate: [AuthGuard] },
   { path: 'doctorspace', component: DoctorSpaceComponent, canActivate: [AuthGuard] },
   { path: 'patientspace', component: PatientSpaceComponent, canActivate: [AuthGuard] },
+  {
+    path: 'users', component: UsersComponent,
+    children: [
+      {
+        path: 'new',
+        component: UserComponent
+      },
+      {
+        path: ':id',
+        component: UserComponent
+      }
+    ],
+    canActivate: [AuthGuard]
+  },
   { path: 'auth', component: AuthComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent },
