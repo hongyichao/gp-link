@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLinkActive } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { AppDataService } from '../app-data.service';
+import { AppUserService } from '../app-user.service';
+import { Patient } from '../shared-models/app.patient';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-patient',
@@ -10,7 +13,7 @@ import { AppDataService } from '../app-data.service';
 })
 export class PatientComponent implements OnInit
 {
-  patient:any;
+  patient: Patient;
   genders=['male', 'female'];
 
   get patientNoteControls() {
@@ -18,7 +21,9 @@ export class PatientComponent implements OnInit
 
   }
 
-  constructor(private dataService: AppDataService, private route: ActivatedRoute) { }
+  constructor(private dataService: AppDataService,
+    private route: ActivatedRoute,
+    private userService: AppUserService) { }
 
   patientForm = new FormGroup({
       firstName: new FormControl(null, Validators.required),
@@ -35,17 +40,22 @@ export class PatientComponent implements OnInit
       let patientId = params['id'];
       if (patientId) {
         this.patient = this.dataService.GetPatientById(+patientId);
-        this.patientForm.get('firstName').setValue(this.patient.FirstName);
-        this.patientForm.get('lastName').setValue(this.patient.LastName);
-        this.patientForm.get('email').setValue(this.patient.Email);
-        this.patientForm.get('gender').setValue(this.patient.Gender);
+        this.patientForm.get('firstName').setValue(this.patient?.FirstName);
+        this.patientForm.get('lastName').setValue(this.patient?.LastName);
+        this.patientForm.get('email').setValue(this.patient?.Email);
+        this.patientForm.get('gender').setValue(this.patient?.Gender);
       }
     });
   }
 
-  onPatientFormSubmit()
-  {
+  onPatientFormSubmit() {
     console.log(this.patientForm.value);
+    const frmVal = this.patientForm.value;
+    this.patient.FirstName = frmVal.firstName;
+    this.patient.LastName = frmVal.lastName;
+    this.patient.Email = frmVal.email;
+    this.patient.Gender = frmVal.gender;
+    this.dataService.updatePatient(this.patient);
   }
 
   onAddNotes()

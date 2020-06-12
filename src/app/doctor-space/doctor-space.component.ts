@@ -12,11 +12,16 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./doctor-space.component.css']
 })
 export class DoctorSpaceComponent implements OnInit {
-  doctor: any;
+  doctor?: Doctor;
   doctorId: number;
   private routeSub: Subscription;
 
-  constructor(private appDataService: AppDataService, private route: ActivatedRoute, private authService: AuthService) { }
+  constructor(private appDataService: AppDataService,
+              private route: ActivatedRoute,
+              private authService: AuthService,
+              private dataService: AppDataService) {
+
+               }
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(
@@ -25,10 +30,10 @@ export class DoctorSpaceComponent implements OnInit {
       if (this.doctorId) {
         this.doctor = this.appDataService.GetDoctorById(this.doctorId);
       } else {
-        const id = this.authService.loggedInUser.Id
+        const id = this.authService.loggedInUser.Id;
         this.doctor = this.appDataService.GetDoctorById(id);
         if (!this.doctor) {
-          this.doctor = {};
+          this.doctor = null;
         }
       }
     });
@@ -36,5 +41,13 @@ export class DoctorSpaceComponent implements OnInit {
 
   OnFormSubmit(frm: NgForm) {
 
+    console.log(frm.value);
+    const frmVal = frm.value;
+    this.doctor.FirstName = frmVal.drFirstName;
+    this.doctor.LastName = frmVal.drLastName;
+    this.doctor.Email = frmVal.drEmail;
+    this.doctor.Phone = frmVal.drPhone;
+
+    this.dataService.updateDoctor(this.doctor);
   }
 }

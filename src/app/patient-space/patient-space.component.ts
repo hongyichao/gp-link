@@ -19,6 +19,12 @@ export class PatientSpaceComponent implements OnInit {
   }
 
   OnFormSubmit(frm: NgForm) {
+    const frmVal = frm.value;
+    this.patient.FirstName = frmVal.firstName;
+    this.patient.LastName = frmVal.lastName;
+    this.patient.Email = frmVal.email;
+    this.patient.Phone = frmVal.phone;
 
+    this.dataService.updatePatient(this.patient);
   }
 }

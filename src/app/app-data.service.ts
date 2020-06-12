@@ -5,6 +5,7 @@ import { Patient } from './shared-models/app.patient';
 import { Appointment } from './shared-models/app.appointment';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { AuthService } from './auth.service';
+import { AppUserService } from './app-user.service';
 
 @Injectable({
 providedIn: 'root',
@@ -16,7 +17,7 @@ export class AppDataService {
     private patients: Patient[];
     private doctors: Doctor[];
 
-    constructor() {
+    constructor(private userService: AppUserService) {
       const storageDoctors = sessionStorage.getItem('gpDoctors');
       this.doctors = storageDoctors ? JSON.parse(storageDoctors) : [];
 
@@ -100,11 +101,30 @@ export class AppDataService {
         console.log(this.doctors);
         return newDoctor.Id;
     }
+    updateDoctorInfo(doctor: Doctor) {
+      const index = this.doctors.findIndex(d => d.Id === +doctor.Id);
+      this.doctors[index] = doctor;
+      this.doctorsChanged.next(this.doctors.slice());
+
+      sessionStorage.setItem('gpDoctors', JSON.stringify(this.doctors));
+    }
 
     updateDoctor(doctor: Doctor) {
       const index = this.doctors.findIndex(d => d.Id === +doctor.Id);
       this.doctors[index] = doctor;
       this.doctorsChanged.next(this.doctors.slice());
+
+      this.updateDoctorAccount(doctor);
+
+      sessionStorage.setItem('gpDoctors', JSON.stringify(this.doctors));
+    }
+
+    updateDoctorAccount(doctor: Doctor) {
+      const theUser = this.userService.getUserById(doctor.Id);
+
+      theUser.FirstName = doctor.FirstName;
+      theUser.LastName = doctor.LastName;
+      this.userService.updateUser(theUser);
     }
 
     AddPatient(newPatient: Patient) {
@@ -112,6 +132,31 @@ export class AppDataService {
       sessionStorage.setItem('gpPatients', JSON.stringify(this.patients));
       console.log(this.patients);
     }
+
+    updatePatientInfo(patient: Patient) {
+      const index = this.patients.findIndex(d => d.Id === +patient.Id);
+      this.patients[index] = patient;
+
+      sessionStorage.setItem('gpPatients', JSON.stringify(this.patients));
+    }
+
+    updatePatient(patient: Patient) {
+      const index = this.patients.findIndex(d => d.Id === +patient.Id);
+      this.patients[index] = patient;
+
+      this.updatePatientAccount(patient);
+
+      sessionStorage.setItem('gpPatients', JSON.stringify(this.patients));
+    }
+
+    updatePatientAccount(patient: Doctor) {
+      const theUser = this.userService.getUserById(patient.Id);
+
+      theUser.FirstName = patient.FirstName;
+      theUser.LastName = patient.LastName;
+      this.userService.updateUser(theUser);
+    }
+
 
     getAppointmentsForPatient(id: number) {
       return this.appointments.filter(a => a.patientId === id);
