@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Appointment } from '../shared-models/app.appointment';
 import { AppDataService } from '../app-data.service';
 import { AuthService } from '../auth.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AppointmentModelComponent } from '../shared/appointment-model/appointment-model.component';
 
 @Component({
   selector: 'app-appointments',
@@ -10,7 +12,9 @@ import { AuthService } from '../auth.service';
 })
 export class AppointmentsComponent implements OnInit {
   appointments: Appointment[];
-  constructor(private dataService: AppDataService, private authService: AuthService) { }
+  constructor(private dataService: AppDataService,
+              private authService: AuthService,
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
     const user = this.authService.loggedInUser;
@@ -24,5 +28,10 @@ export class AppointmentsComponent implements OnInit {
     } else {
       this.appointments = [];
     }
+  }
+
+  showAppointmentModal(id: number) {
+    const modalRef = this.modalService.open(AppointmentModelComponent);
+    modalRef.componentInstance.id = id;
   }
 }

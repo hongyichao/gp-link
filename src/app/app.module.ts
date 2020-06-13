@@ -24,6 +24,7 @@ import { PatientSpaceComponent } from './patient-space/patient-space.component';
 import { UsersComponent } from './users/users.component';
 import { UserComponent } from './user/user.component';
 import { UserFilterPipe } from './pipes/user-filter.pipe';
+import { AppointmentModelComponent } from './shared/appointment-model/appointment-model.component';
 
 @NgModule({
   declarations: [
@@ -40,8 +41,10 @@ import { UserFilterPipe } from './pipes/user-filter.pipe';
     PatientSpaceComponent,
     UsersComponent,
     UserComponent,
-    UserFilterPipe
+    UserFilterPipe,
+    AppointmentModelComponent
   ],
+  entryComponents: [AppointmentModelComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

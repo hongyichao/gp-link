@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h4 class="modal-title">Hi there!</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click');">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="appointmentForm" (ngSubmit)="onAppointFormSubmit()">
+        <div class="form-group">
+            <label for="doctorName">Doctor</label>
+            <input type="text" disabled=true id="doctorName" class="form-control" formControlName="doctorName" name="doctorName">
+        </div>
+        <div class="form-group">
+            <label for="patientName">Patient</label>
+            <input type="text" disabled=true id="patientName" class="form-control" formControlName="patientName" name="patientName">
+        </div>
+        <div class="form-group">
+            <label for="appointmentDateTime">Appointment Date Time</label>
+            <input type="text" disabled=true id="appointmentDateTime" class="form-control" formControlName="appointmentDateTime" name="appointmentDateTime">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger">Cancel Appointment</button>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click');">Close</button>
+</div>

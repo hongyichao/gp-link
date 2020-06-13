@@ -1,12 +1,24 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
+
             <hr>
             <div *ngFor="let a of appointments">
-                <div>
-                    {{a.DateTime.toDateString()}}
-                    <hr>
+                <div class="row">
+                    <div class="col-md-3">
+                        Time: {{a.DateTime.toDateString()}}
+                    </div>
+                    <div class="col-md-4">
+                        Doctor: {{a.doctorName}}
+                    </div>
+                    <div class="col-md-4">
+                        Patient: {{a.patientName}}
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" (click)="showAppointmentModal(a.Id)" class="btn btn-outline-warning">Cancel</button>
+                    </div>
                 </div>
+                <hr>
             </div>
         </div>
     </div>
