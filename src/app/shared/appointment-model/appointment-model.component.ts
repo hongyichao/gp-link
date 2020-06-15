@@ -32,7 +32,7 @@ export class AppointmentModelComponent implements OnInit {
   }
 
   onAppointFormSubmit() {
+    this.dataService.cancelAppointment(this.appointment.Id);
     this.activeModal.close('Close click');
-    alert('not implemenetd yet!!!');
   }
 }

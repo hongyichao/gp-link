@@ -157,6 +157,11 @@ export class AppDataService {
       this.userService.updateUser(theUser);
     }
 
+    cancelAppointment(id: number) {
+      const index = this.appointments.findIndex(a => a.Id === id);
+      this.appointments.splice(index, 1);
+    }
+
     getAppointmentById(id: number) {
       return this.appointments.find(a => a.Id === id);
     }
