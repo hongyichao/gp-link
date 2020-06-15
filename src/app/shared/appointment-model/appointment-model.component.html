@@ -5,21 +5,32 @@
   </button>
 </div>
 <div class="modal-body">
-    <form [formGroup]="appointmentForm" (ngSubmit)="onAppointFormSubmit()">
+    <form [formGroup]="appointmentForm" (ngSubmit)="onAppointmentFormSubmit()">
+
         <div class="form-group">
             <label for="doctorName">Doctor</label>
-            <input type="text" disabled=true id="doctorName" class="form-control" formControlName="doctorName" name="doctorName">
+            <input type="text" [attr.disabled]="editMode === 'delete' ? '' : null" id="doctorName" class="form-control" formControlName="doctorName" name="doctorName" *ngIf="editMode === 'delete'">
+            <select class="form-control" id="selectedDoctor" name="selectedDoctor" formControlName="doctorId" *ngIf="editMode === 'add'">
+              <option value=""></option>
+              <option *ngFor="let doctor of doctors"
+                [value]="doctor.Id">
+                {{doctor.FirstName}}</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="patientName">Patient</label>
-            <input type="text" disabled=true id="patientName" class="form-control" formControlName="patientName" name="patientName">
+            <input type="text" [attr.disabled]="editMode === 'delete' ? '' : null" id="patientName" class="form-control" formControlName="patientName" name="patientName">
         </div>
         <div class="form-group">
             <label for="appointmentDateTime">Appointment Date Time</label>
-            <input type="text" disabled=true id="appointmentDateTime" class="form-control" formControlName="appointmentDateTime" name="appointmentDateTime">
+            <input type="text" [attr.disabled]="editMode === 'delete' ? '' : null" id="appointmentDateTime" class="form-control" formControlName="appointmentDateTime" name="appointmentDateTime">
         </div>
+
+
+
+
         <div class="form-group">
-            <button type="submit" class="btn btn-danger">Cancel Appointment</button>
+            <button type="submit" class="btn btn-danger">{{editMode === 'add' ? 'Add' : 'Cancel Appointment'}}</button>
         </div>
     </form>
 </div>

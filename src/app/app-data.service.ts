@@ -6,6 +6,7 @@ import { Appointment } from './shared-models/app.appointment';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { AuthService } from './auth.service';
 import { AppUserService } from './app-user.service';
+import { AppointmentComponent } from './appointment/appointment.component';
 
 @Injectable({
 providedIn: 'root',
@@ -155,6 +156,12 @@ export class AppDataService {
       theUser.FirstName = patient.FirstName;
       theUser.LastName = patient.LastName;
       this.userService.updateUser(theUser);
+    }
+
+    addAppointment(newAppointment: Appointment) {
+      const id = this.appointments.length === 0 ? 1 : this.appointments[this.appointments.length - 1].Id + 1;
+      newAppointment.Id = id;
+      this.appointments.push(newAppointment);
     }
 
     cancelAppointment(id: number) {

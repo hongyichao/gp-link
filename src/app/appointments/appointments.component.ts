@@ -34,4 +34,8 @@ export class AppointmentsComponent implements OnInit {
     const modalRef = this.modalService.open(AppointmentModelComponent);
     modalRef.componentInstance.id = id;
   }
+
+  onAddNewAppointment() {
+    const modalRef = this.modalService.open(AppointmentModelComponent);
+  }
 }
