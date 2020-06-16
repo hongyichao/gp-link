@@ -20,12 +20,25 @@ export class AppointmentModelComponent implements OnInit {
 
   patients: Patient[];
   doctors: Doctor[];
-  activeUser: AppUser;
+  loggedInUser: AppUser;
+  userRole: string;
 
   selectedDoctor;
   selectedPatient;
 
   appointment: Appointment;
+
+  appointmentTimeList = [{Hour: '09', Minute: '00'},
+  {Hour: '10', Minute: '00'},
+  {Hour: '11', Minute: '00'},
+  {Hour: '12', Minute: '00'},
+  {Hour: '13', Minute: '00'},
+  {Hour: '14', Minute: '00'},
+  {Hour: '15', Minute: '00'},
+  {Hour: '16', Minute: '00'},
+  {Hour: '17', Minute: '00'},
+  {Hour: '18', Minute: '00'}
+];
 
   appointmentForm = new FormGroup({
     doctorName: new FormControl(null),
@@ -35,13 +48,12 @@ export class AppointmentModelComponent implements OnInit {
     appointmentDateTime: new FormControl(null)
   });
 
+  selectedDate = '';
+  selectedTime = '';
+
   constructor(public activeModal: NgbActiveModal, private dataService: AppDataService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.patients = this.dataService.GetPatients();
-    this.doctors = this.dataService.GetDoctors();
-    this.activeUser = this.authService.loggedInUser;
-
     if (this.id) {
       this.editMode = 'delete';
       this.appointment = this.dataService.getAppointmentById(this.id);
@@ -50,6 +62,18 @@ export class AppointmentModelComponent implements OnInit {
       this.appointmentForm.get('appointmentDateTime').setValue(this.appointment?.DateTime.toDateString());
     } else {
       this.editMode = 'add';
+      this.patients = this.dataService.GetPatients();
+      this.doctors = this.dataService.GetDoctors();
+      this.loggedInUser = this.authService.loggedInUser;
+      this.userRole = this.loggedInUser.Type;
+
+      if (this.userRole === 'patient') {
+        this.appointmentForm.get('patientId').setValue(this.loggedInUser.Id);
+      }
+
+      if (this.userRole === 'doctor') {
+        this.appointmentForm.get('doctorId').setValue(this.loggedInUser.Id);
+      }
     }
   }
 
@@ -65,5 +89,18 @@ export class AppointmentModelComponent implements OnInit {
       console.log(frmVal);
     }
 
+  }
+
+  appointmentDateChanged(event) {
+    console.log('date:' + JSON.stringify(event));
+    if (event) {
+      this.selectedDate = event.year + '-' + event.month + '-' + event.day;
+      this.appointmentForm.get('appointmentDateTime').setValue(this.selectedDate + ' ' + this.selectedTime);
+    }
+  }
+
+  onTimeChanged(time: string) {
+    this.selectedTime = time;
+    this.appointmentForm.get('appointmentDateTime').setValue(this.selectedDate + ' ' + this.selectedTime);
   }
 }

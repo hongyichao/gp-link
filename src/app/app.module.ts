@@ -25,6 +25,8 @@ import { UsersComponent } from './users/users.component';
 import { UserComponent } from './user/user.component';
 import { UserFilterPipe } from './pipes/user-filter.pipe';
 import { AppointmentModelComponent } from './shared/appointment-model/appointment-model.component';
+import { AppDatePickerComponent } from './shared/app-date-picker/app-date-picker.component';
+import { AppTimePickerComponent } from './shared/app-time-picker/app-time-picker.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { AppointmentModelComponent } from './shared/appointment-model/appointmen
     UsersComponent,
     UserComponent,
     UserFilterPipe,
-    AppointmentModelComponent
+    AppointmentModelComponent,
+    AppDatePickerComponent,
+    AppTimePickerComponent
   ],
   entryComponents: [AppointmentModelComponent],
   imports: [
