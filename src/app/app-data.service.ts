@@ -56,18 +56,18 @@ export class AppDataService {
       this.appointments = storageAppointments ? JSON.parse(storageAppointments) : [];
       if (this.appointments.length === 0) {
         this.appointments = [
-          { Id: 1, DateTime: new Date(2020, 6, 13), doctorId: 2, doctorName: 'Doctor Doctor', patientId: 3, patientName: 'Patient Patient'},
-          { Id: 2, DateTime: new Date(2020, 6, 10), doctorId: 4, doctorName: 'Lucas Chao', patientId: 15, patientName: 'John'},
-          { Id: 3, DateTime: new Date(2020, 7, 10), doctorId: 5, doctorName: 'Terry', patientId: 16, patientName: 'Michael'},
-          { Id: 4, DateTime: new Date(2020, 7, 11), doctorId: 6, doctorName: 'Jane', patientId: 17, patientName: 'Taylor'},
-          { Id: 5, DateTime: new Date(2020, 7, 12), doctorId: 7, doctorName: 'Helen', patientId: 15, patientName: 'John'},
-          { Id: 6, DateTime: new Date(2020, 7, 13), doctorId: 8, doctorName: 'Johnny', patientId: 16, patientName: 'Michael'},
-          { Id: 7, DateTime: new Date(2020, 7, 14), doctorId: 9, doctorName: 'Mark', patientId: 17, patientName: 'Taylor'},
-          { Id: 8, DateTime: new Date(2020, 6, 14), doctorId: 10, doctorName: 'Andrew', patientId: 16, patientName: 'Michael'},
-          { Id: 9, DateTime: new Date(2020, 6, 13), doctorId: 11, doctorName: 'Alexandra', patientId: 15, patientName: 'John'},
-          { Id: 10, DateTime: new Date(2020, 6, 12), doctorId: 12, doctorName: 'Jemma', patientId: 16, patientName: 'Michael'},
-          { Id: 11, DateTime: new Date(2020, 6, 11), doctorId: 13, doctorName: 'Jemma', patientId: 17, patientName: 'Taylor'},
-          { Id: 12, DateTime: new Date(2020, 6, 10), doctorId: 14, doctorName: 'Vicent', patientId: 15, patientName: 'John'},
+          { Id: 1, DateTime: new Date(2020, 6, 13), DoctorId: 2, DoctorName: 'Doctor Doctor', PatientId: 3, PatientName: 'Patient Patient'},
+          { Id: 2, DateTime: new Date(2020, 6, 10), DoctorId: 4, DoctorName: 'Lucas Chao', PatientId: 15, PatientName: 'John'},
+          { Id: 3, DateTime: new Date(2020, 7, 10), DoctorId: 5, DoctorName: 'Terry', PatientId: 16, PatientName: 'Michael'},
+          { Id: 4, DateTime: new Date(2020, 7, 11), DoctorId: 6, DoctorName: 'Jane', PatientId: 17, PatientName: 'Taylor'},
+          { Id: 5, DateTime: new Date(2020, 7, 12), DoctorId: 7, DoctorName: 'Helen', PatientId: 15, PatientName: 'John'},
+          { Id: 6, DateTime: new Date(2020, 7, 13), DoctorId: 8, DoctorName: 'Johnny', PatientId: 16, PatientName: 'Michael'},
+          { Id: 7, DateTime: new Date(2020, 7, 14), DoctorId: 9, DoctorName: 'Mark', PatientId: 17, PatientName: 'Taylor'},
+          { Id: 8, DateTime: new Date(2020, 6, 14), DoctorId: 10, DoctorName: 'Andrew', PatientId: 16, PatientName: 'Michael'},
+          { Id: 9, DateTime: new Date(2020, 6, 13), DoctorId: 11, DoctorName: 'Alexandra', PatientId: 15, PatientName: 'John'},
+          { Id: 10, DateTime: new Date(2020, 6, 12), DoctorId: 12, DoctorName: 'Jemma', PatientId: 16, PatientName: 'Michael'},
+          { Id: 11, DateTime: new Date(2020, 6, 11), DoctorId: 13, DoctorName: 'Jemma', PatientId: 17, PatientName: 'Taylor'},
+          { Id: 12, DateTime: new Date(2020, 6, 10), DoctorId: 14, DoctorName: 'Vicent', PatientId: 15, PatientName: 'John'},
         ];
       }
 
@@ -162,6 +162,8 @@ export class AppDataService {
       const id = this.appointments.length === 0 ? 1 : this.appointments[this.appointments.length - 1].Id + 1;
       newAppointment.Id = id;
       this.appointments.push(newAppointment);
+
+      console.log(this.appointments);
     }
 
     cancelAppointment(id: number) {
@@ -174,11 +176,11 @@ export class AppDataService {
     }
 
     getAppointmentsForPatient(id: number) {
-      return this.appointments.filter(a => a.patientId === id);
+      return this.appointments.filter(a => a.PatientId === id);
     }
 
     getAppointmentsForDoctor(id: number) {
-      return this.appointments.filter(a => a.doctorId === id);
+      return this.appointments.filter(a => a.DoctorId === id);
     }
 
     getAllAppointments() {

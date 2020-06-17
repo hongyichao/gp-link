@@ -57,8 +57,8 @@ export class AppointmentModelComponent implements OnInit {
     if (this.id) {
       this.editMode = 'delete';
       this.appointment = this.dataService.getAppointmentById(this.id);
-      this.appointmentForm.get('doctorName').setValue(this.appointment?.doctorName);
-      this.appointmentForm.get('patientName').setValue(this.appointment?.patientName);
+      this.appointmentForm.get('doctorName').setValue(this.appointment?.DoctorName);
+      this.appointmentForm.get('patientName').setValue(this.appointment?.PatientName);
       this.appointmentForm.get('appointmentDateTime').setValue(this.appointment?.DateTime.toDateString());
     } else {
       this.editMode = 'add';
@@ -81,14 +81,26 @@ export class AppointmentModelComponent implements OnInit {
 
     if (this.editMode === 'delete') {
       this.dataService.cancelAppointment(this.appointment.Id);
-      this.activeModal.close('Close click');
+
     } else {
       const frmVal = this.appointmentForm.value;
-      // this.appointment.doctorId = frmVal.doctorId;
-      // this.appointment.patientId = frmVal.patientId;
-      console.log(frmVal);
+
+      const selectedDoctor = this.doctors.find(d => d.Id === +frmVal.doctorId);
+      const selectedPatient = this.patients.find(p => p.Id === +frmVal.patientId);
+
+      const newAppointment: Appointment = {
+        Id: null,
+        DoctorId: frmVal.doctorId,
+        DoctorName: selectedDoctor.FirstName + ' ' + selectedDoctor.LastName,
+        PatientId: frmVal.patientId,
+        PatientName: selectedPatient.FirstName + ' ' + selectedPatient.LastName,
+        DateTime: new Date(frmVal.appointmentDateTime)
+      };
+
+      this.dataService.addAppointment(newAppointment);
     }
 
+    this.activeModal.close('Close click');
   }
 
   appointmentDateChanged(event) {

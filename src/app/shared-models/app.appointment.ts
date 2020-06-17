@@ -4,9 +4,9 @@ import { Patient } from './app.patient';
 export interface Appointment {
   Id: number;
   DateTime: Date;
-  doctorId: number;
-  doctorName: string;
-  patientId: number;
-  patientName: string;
+  DoctorId: number;
+  DoctorName: string;
+  PatientId: number;
+  PatientName: string;
   note?: string;
 }
