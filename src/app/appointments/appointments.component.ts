@@ -20,9 +20,21 @@ export class AppointmentsComponent implements OnInit {
     const user = this.authService.loggedInUser;
 
     if (user.Type === 'doctor') {
-      this.appointments = this.dataService.getAppointmentsForDoctor(user.Id);
+
+      this.dataService.appointmentsChanged.subscribe(data => {
+          this.appointments = data;
+        }
+      );
+
+      this.dataService.getAppointmentsForDoctor(user.Id);
     } else if (user.Type === 'patient') {
-      this.appointments = this.dataService.getAppointmentsForPatient(user.Id);
+
+      this.dataService.appointmentsChanged.subscribe(data => {
+          this.appointments = data;
+        }
+      );
+
+      this.dataService.getAppointmentsForPatient(user.Id);
     } else if (user.Type === 'admin') {
       this.appointments = this.dataService.getAllAppointments();
     } else {

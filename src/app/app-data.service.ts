@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import {Doctor} from './shared-models/app.doctor';
 import { Patient } from './shared-models/app.patient';
 import { Appointment } from './shared-models/app.appointment';
@@ -14,6 +14,10 @@ providedIn: 'root',
 export class AppDataService {
     doctorsChanged = new Subject<Doctor[]>();
 
+    appointmentsChanged = new BehaviorSubject<Appointment[]>([]);
+
+    loggedInUserId: number;
+    loggedInUserType: string;
     private appointments: Appointment[];
     private patients: Patient[];
     private doctors: Doctor[];
@@ -164,11 +168,13 @@ export class AppDataService {
       this.appointments.push(newAppointment);
 
       console.log(this.appointments);
+      this.changeUserAppointments();
     }
 
     cancelAppointment(id: number) {
       const index = this.appointments.findIndex(a => a.Id === id);
       this.appointments.splice(index, 1);
+      this.changeUserAppointments();
     }
 
     getAppointmentById(id: number) {
@@ -176,15 +182,33 @@ export class AppDataService {
     }
 
     getAppointmentsForPatient(id: number) {
-      return this.appointments.filter(a => a.PatientId === id);
+      this.loggedInUserId = id;
+      this.loggedInUserType = 'patient';
+      const appointmentsForThePatient = this.appointments.filter(a => a.PatientId === id);
+      this.appointmentsChanged.next(appointmentsForThePatient);
     }
 
     getAppointmentsForDoctor(id: number) {
-      return this.appointments.filter(a => a.DoctorId === id);
+      this.loggedInUserId = id;
+      this.loggedInUserType = 'doctor';
+      const appointmentsForTheDoctor = this.appointments.filter(a => a.DoctorId === id);
+      this.appointmentsChanged.next(appointmentsForTheDoctor);
     }
 
     getAllAppointments() {
       return this.appointments;
+    }
+
+    changeUserAppointments() {
+      if (this.loggedInUserType === 'doctor') {
+        const appointmentsForTheDoctor = this.appointments.filter(a => a.DoctorId === this.loggedInUserId);
+        this.appointmentsChanged.next(appointmentsForTheDoctor);
+      }
+
+      if (this.loggedInUserType === 'patient') {
+        const appointmentsForThePatient = this.appointments.filter(a => a.PatientId === this.loggedInUserId);
+        this.appointmentsChanged.next(appointmentsForThePatient);
+      }
     }
 }
 
