@@ -83,6 +83,7 @@ export class AppointmentModelComponent implements OnInit {
       this.dataService.cancelAppointment(this.appointment.Id);
 
     } else {
+      console.log(this.appointmentForm);
       const frmVal = this.appointmentForm.value;
 
       const selectedDoctor = this.doctors.find(d => d.Id === +frmVal.doctorId);
@@ -114,5 +115,25 @@ export class AppointmentModelComponent implements OnInit {
   onTimeChanged(time: string) {
     this.selectedTime = time;
     this.appointmentForm.get('appointmentDateTime').setValue(this.selectedDate + ' ' + this.selectedTime);
+  }
+
+  isFormInvalid() {
+    if (this.editMode === 'delete') {
+      return false;
+    }
+
+    if (this.appointmentForm.status === 'INVALID') {
+      return true;
+    }
+
+    if (this.selectedDate === '') {
+      return true;
+    }
+
+    if (this.selectedTime === '') {
+      return true;
+    }
+
+    return false;
   }
 }

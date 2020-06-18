@@ -10,7 +10,7 @@
         <div class="form-group">
             <label for="doctorName">Doctor</label>
             <input type="text" [attr.disabled]="editMode === 'delete' ? '' : null" id="doctorName" class="form-control" formControlName="doctorName" name="doctorName" *ngIf="editMode === 'delete'">
-            <select class="form-control" id="selectedDoctor" name="selectedDoctor" formControlName="doctorId" *ngIf="editMode === 'add'" [attr.disabled]="userRole === 'doctor' ? '' : null">
+            <select class="form-control" id="selectedDoctor" name="selectedDoctor" formControlName="doctorId" required *ngIf="editMode === 'add'" [attr.disabled]="userRole === 'doctor' ? '' : null">
               <option value=""></option>
               <option *ngFor="let doctor of doctors"
                 [value]="doctor.Id">
@@ -20,7 +20,7 @@
         <div class="form-group">
             <label for="patientName">Patient</label>
             <input type="text" [attr.disabled]="editMode === 'delete' ? '' : null" id="patientName" class="form-control" formControlName="patientName" name="patientName" *ngIf="editMode === 'delete'">
-            <select class="form-control" id="selectedPatient" name="selectedPatient" formControlName="patientId" *ngIf="editMode === 'add'" [attr.disabled]="userRole === 'patient' ? '' : null">
+            <select class="form-control" id="selectedPatient" name="selectedPatient" formControlName="patientId" required *ngIf="editMode === 'add'" [attr.disabled]="userRole === 'patient' ? '' : null">
                 <option value=""></option>
                 <option *ngFor="let patient of patients"
                   [value]="patient.Id">
@@ -29,22 +29,30 @@
         </div>
         <div class="form-group">
             <label for="appointmentDateTime">Appointment Date Time</label>
-            <input type="text" [attr.disabled]="editMode === 'delete' ? '' : null" id="appointmentDateTime" class="form-control" formControlName="appointmentDateTime" name="appointmentDateTime">
-            <app-app-date-picker *ngIf="editMode === 'add'" (dateChangedEvent)="appointmentDateChanged($event)"></app-app-date-picker>
-            <select *ngIf="editMode === 'add'" (change)="onTimeChanged(selectTime.value)" #selectTime>
-              <option value=""></option>
-              <option *ngFor="let t of appointmentTimeList"
-                [value]="t.Hour + ':'+ t.Minute">
-                {{t.Hour + ':'+ t.Minute}}
-              </option>
-            </select>
+            <input type="text" [attr.disabled]="''" id="appointmentDateTime" class="form-control" formControlName="appointmentDateTime" name="appointmentDateTime">
+            <div class="row box-top" *ngIf="editMode === 'add'">
+                <div class="col-md-6">
+                    Select Date
+                    <app-app-date-picker (dateChangedEvent)="appointmentDateChanged($event)"></app-app-date-picker>
+                </div>
+                <div class="col-md-6">
+                    Select Time
+                    <select class="form-control" (change)="onTimeChanged(selectTime.value)" #selectTime>
+                      <option value=""></option>
+                      <option *ngFor="let t of appointmentTimeList"
+                        [value]="t.Hour + ':'+ t.Minute">
+                        {{t.Hour + ':'+ t.Minute}}
+                      </option>
+                    </select>
+                </div>
+            </div>
         </div>
 
 
 
 
         <div class="form-group">
-            <button type="submit" class="btn btn-danger">{{editMode === 'add' ? 'Add' : 'Cancel Appointment'}}</button>
+            <button type="submit" [disabled]="isFormInvalid()" class="btn btn-danger">{{editMode === 'add' ? 'Add' : 'Cancel Appointment'}}</button>
         </div>
     </form>
 </div>
