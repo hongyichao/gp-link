@@ -1,34 +1,49 @@
 <div class="container">
     <div class="row">
-        <span *ngIf="IsLoggedIn" class="help-block">You are logged in as admin</span>
-        <!--<span *ngIf="!IsLoggedIn" class="help-block">Please sign in to manage patients and appointments
-
-        </span>-->
+        <ngb-accordion [closeOthers]="true" activeIds="static-1">
+            <ngb-panel id="static-1" title="Local Auth">
+                <ng-template ngbPanelContent>
+                    <form (ngSubmit)="onUserLogin()" #loginForm="ngForm">
+                        <div class="form-group">
+                            <span *ngIf="!uname.valid && uname.touched" class="invalid-field">*</span>
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username" required #uname="ngModel">
+                        </div>
+                        <div class="form-group">
+                            <span *ngIf="!pword.valid && pword.touched" class="invalid-field">*</span>
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" required #pword="ngModel">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button> /
+                        <button type="button" class="btn btn-outline-primary" (click)="redirectToSignUp()">Sign up</button>
+                    </form>
+                    <ul>
+                        <li>use admin/admin to login as admin</li>
+                        <li>use doctor/doctor to login as doctor</li>
+                        <li>use patient/patient to login as patient</li>
+                    </ul>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel id="static-2">
+                <ng-template ngbPanelTitle>
+                    <span>AWS Auth</span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    Login via AWS account
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel id="static-3">
+                <ng-template ngbPanelTitle>
+                    <span>Azure Auth</span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    Login via Azure
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
     </div>
-    <div class="row">
-        <form (ngSubmit)="onUserLogin()" #loginForm="ngForm">
-            <div class="form-group">
-                <span *ngIf="!uname.valid && uname.touched" class="invalid-field">*</span>
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username" required #uname="ngModel">
-            </div>
-            <div class="form-group">
-                <span *ngIf="!pword.valid && pword.touched" class="invalid-field">*</span>
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" required #pword="ngModel">
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button> /
-            <button type="button" class="btn btn-outline-primary" (click)="redirectToSignUp()">Sign up</button>
-        </form>
 
-        <ul>
-            <li>use admin/admin to login as admin</li>
-            <li>use doctor/doctor to login as doctor</li>
-            <li>use patient/patient to login as patient</li>
-        </ul>
 
-        <!--<button class="btn btn-primary" (click)="ToLogout()">Logout</button>-->
-    </div>
     <!--<div class="row">
         <button id="googleBtn" class="btn btn-primary">Google Sign In</button>
         <button class="btn btn-primary" (click)="signOut()">Sign out</button>
